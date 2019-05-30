@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -8,7 +9,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class NavigationComponent implements OnInit {
   @Output() navEvent = new EventEmitter<Object>();
 
-  constructor() { }
+  constructor(public router:Router) { }
 
   ngOnInit() {
 
@@ -20,6 +21,8 @@ export class NavigationComponent implements OnInit {
 
   brandClick(){
     if(document.body.clientWidth < 701)
-      this.toggleMainMenu()
+      this.toggleMainMenu();
+    else
+      this.router.navigateByUrl('home');
   }
 }

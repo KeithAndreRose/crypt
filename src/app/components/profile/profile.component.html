@@ -1,13 +1,48 @@
 <div class="profile-wrapper">
-  <img src="" alt="">
-  
-  <label for="email">Email</label>
-  <input type="email" name="email" id="email">
-  
-  <label for="username">Username</label>
-  <input type="text" name="username" id="username">
-  
-  <label for="name">Name</label>
-  <input type="text" name="name" id="name">
-  
+  <span>ACCOUNT</span>
+
+  <div class="profile-image">
+    <svg  viewBox="0 0 100 100"><path d="M50,5A45,45,0,1,0,95,50,45,45,0,0,0,50,5Zm-.6,11.42A16.23,16.23,0,0,1,65.63,32.65c0,9-7.27,20-16.23,20s-16.24-11-16.24-20A16.23,16.23,0,0,1,49.4,16.42ZM50,85.58A34.51,34.51,0,0,1,22.55,72a24.52,24.52,0,0,1,23-15.94h8.94A24.52,24.52,0,0,1,77.45,72,34.51,34.51,0,0,1,50,85.58Z"></path></svg>
+  </div>
+
+  <div>
+      <input class="profile-input" type="text" name="name" placeholder="Name" id="name">
+  </div>  
+
+  <div>
+    <input class="profile-input" type="email" name="email" placeholder="Email Address" id="email">
+  </div>
+
+  <div>
+    <input class="profile-input" type="text" name="username" placeholder="@Username" id="username">
+  </div>  
+
+
+  <div>
+    <input class="sign-out" type="button" value="Sign Out">
+  </div>
+
+  <!-- <div >
+    <input class="terminate-account" type="button" value="Terminate Account" (click)="accountTermination()">
+  </div>
+   -->
+  <div class="terminate-account-confirmation">
+    <h1>
+      ACCOUNT TERMINATION
+    </h1>
+    <div>
+      <label for="confirm-kill-step1">Type in your username</label>
+      <input class="terminate-confirm" type="text" name="confirm-kill-step1" id="confirm-kill-step1" #step1>
+    </div>
+    <div>
+      <label for="confirm-kill-step2">Type <i>delete my account</i></label>
+      <input class="terminate-confirm" type="text" name="confirm-kill-step2" id="confirm-kill-step2" #step2>
+    </div>
+    <div>
+      <button class="terminate-account" type="button" value="Terminate Account" (click)="terminateAccount(step1.value, step2.value, terminateConfrim)" #terminateConfrim>
+        TERMINATE ACCOUNT
+      </button>
+    </div>
+  </div>
+
 </div>

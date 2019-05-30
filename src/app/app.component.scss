@@ -6,7 +6,7 @@
 
 .container{
   overflow: hidden;
-  height: 100vh;
+  // height: 100vh;
   display: grid;
   grid-template-columns: auto minmax(320px,1100px) auto;
   justify-content: space-between;
