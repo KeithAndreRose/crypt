@@ -15,6 +15,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { environment } from '../environments/environment';
 
 import { AuthService } from "./services/auth.service";
+import { FirebaseService } from './services/firebase.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AuthService } from "./services/auth.service";
     environment.production ? ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }) : []
   ],
   providers: [
-    AuthService
+    AuthService,
+    FirebaseService
   ],
   bootstrap: [AppComponent]
 })

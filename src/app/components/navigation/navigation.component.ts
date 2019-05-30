@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-navigation',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 export class NavigationComponent implements OnInit {
   @Output() navEvent = new EventEmitter<Object>();
 
-  constructor(public router:Router) { }
+  constructor(public router:Router, public authService:AuthService) { }
 
   ngOnInit() {
 

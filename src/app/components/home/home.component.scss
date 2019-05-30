@@ -65,3 +65,20 @@ header{
     // background: #202124;
   }
 }
+
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  justify-content: center;
+  grid-gap: 1rem;
+  transition: all ease 300ms;
+}
+
+
+.card{
+  min-width: 240px;
+  height: 240px;
+  border-radius: 8px;
+  background: #202124;
+  transition: all ease 300ms;
+}
