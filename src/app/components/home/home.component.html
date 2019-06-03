@@ -1,4 +1,5 @@
 <div class="home-wrapper">
+  <span>CHEST | {{currentChest}} </span>
   <header>
     <div class="message-area">
       <input class="message-title" type="text" placeholder="Title">
@@ -6,10 +7,6 @@
     </div>
   </header>
   <main>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
+    <app-chest-item *ngFor="let item of chestItems" [item]="item" (itemEmitter)="itemEvent($event)" id={{item.id}}></app-chest-item>
   </main>
 </div>

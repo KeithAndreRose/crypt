@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/models/item';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -9,7 +10,7 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 })
 export class HomeComponent implements OnInit {
   // Default Chest
-  defaultChest: String = 'test';
+  defaultChest: String = 'Me';
   // Current Chest Key
   currentChest: String;
   // Item Bin
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit {
   focusedItem: Item = null;
 
   isLoading: boolean = true;
-  constructor(public firebase: FirebaseService) { }
+  constructor(public firebase: FirebaseService, public router:Router) { }
 
   ngOnInit() {
     if(this.firebase.verifyUser)
@@ -28,6 +29,27 @@ export class HomeComponent implements OnInit {
 
   }
 
+  navigationBarEvent(event){
+    const method = event.method;
+    switch(method){
+      case 'searchKey':
+        this.getChest(event.data.chestKey);
+        break;
+    }
+  }
+
+  itemEvent(event){
+    const method = event.method;
+    switch(method){
+      case 'delete':
+        this.deleteItem(event.data.item)
+      break;
+    }
+  }
+
+  deleteItem(item: Item){
+
+  }
 
   getChest(key){
     this.focusedItem = null;
@@ -38,7 +60,6 @@ export class HomeComponent implements OnInit {
     this.firebase.getItems(this.currentChest).subscribe(data => {
       this.isLoading = false;
       this.chestItems = data;
-      console.log(data)
       this.chestItems.reverse();
     })
   }

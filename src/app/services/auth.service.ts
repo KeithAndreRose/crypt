@@ -14,6 +14,7 @@ import * as EC from "elliptic/lib/elliptic/ec";
 })
 export class AuthService {
   userData: any;
+  secretKey: string = 'wasd';
 
   constructor(
     public afs: AngularFirestore,
@@ -65,6 +66,7 @@ export class AuthService {
 
   // Sign out
   signOut() {
+    this.router.navigateByUrl("home")
     return this.afAuth.auth.signOut();
   }
 

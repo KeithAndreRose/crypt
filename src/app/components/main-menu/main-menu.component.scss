@@ -13,18 +13,24 @@
 
 .menu-item{
   height: 3.5rem;
-  border-bottom: solid thin grey;
+  color: var(--mainTextColor);
+  // border-bottom: solid thin var(--mainTextColor);
   display: grid;
   grid-template-columns: 1.5rem auto;
   grid-column-gap: 1rem;
   align-items: center;
   padding: 1rem;
+  cursor: pointer;
+
+  &:hover{
+    background: var(--mainTransparent);
+  }
 
   .menu-item-icon{
     border-radius: 50%;
     width: 1.5rem;
     height: 1.5rem;
-    background: rgba(0, 0, 0,.1);
+    background: var(--mainTextColor);
   }
 
   .menu-item-label{

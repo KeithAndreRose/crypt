@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from "../../services/auth.service";
+import { CssThemeingService } from 'src/app/services/css-themeing.service';
 
 @Component({
   selector: 'app-navigation',
@@ -10,7 +11,7 @@ import { AuthService } from "../../services/auth.service";
 export class NavigationComponent implements OnInit {
   @Output() navEvent = new EventEmitter<Object>();
 
-  constructor(public router:Router, public authService:AuthService) { }
+  constructor(public router:Router, public authService:AuthService, public cssTheme:CssThemeingService) { }
 
   ngOnInit() {
 
@@ -25,5 +26,9 @@ export class NavigationComponent implements OnInit {
       this.toggleMainMenu();
     else
       this.router.navigateByUrl('home');
+  }
+
+  toggleTheme(){
+    return this.cssTheme.toggleTheme();
   }
 }

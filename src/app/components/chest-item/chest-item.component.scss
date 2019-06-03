@@ -1,0 +1,13 @@
+.item-card {
+  padding: 1rem;
+  min-width: 240px;
+  height: 240px;
+  border-radius: 8px;
+  background: var(--mainTextColor);
+  transition: all ease 300ms;
+  color: var(--mainAccent);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}

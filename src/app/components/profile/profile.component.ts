@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    // IF no profile. Redirect to home
   }
 
   terminateAccount(username:string, consent:string, self:HTMLButtonElement){

@@ -16,6 +16,9 @@ import { environment } from '../environments/environment';
 
 import { AuthService } from "./services/auth.service";
 import { FirebaseService } from './services/firebase.service';
+import { CssThemeingService } from './services/css-themeing.service';
+import { ChestItemComponent } from './components/chest-item/chest-item.component';
+import { DecryptPipe } from './pipes/decrypt.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,9 @@ import { FirebaseService } from './services/firebase.service';
     NavigationComponent,
     MainMenuComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    ChestItemComponent,
+    DecryptPipe
   ],
   imports: [
     BrowserModule,
@@ -35,7 +40,8 @@ import { FirebaseService } from './services/firebase.service';
   ],
   providers: [
     AuthService,
-    FirebaseService
+    FirebaseService,
+    CssThemeingService
   ],
   bootstrap: [AppComponent]
 })

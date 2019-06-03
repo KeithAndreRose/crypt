@@ -8,7 +8,7 @@ nav {
   min-width: 320px;
   height: 4rem;
   max-height: 4rem;
-  background: #fff;
+  background: var(--mainAccent);
   border-bottom: solid thin lightgrey;
   display: grid;
   grid-template-columns: 11.5rem auto 10.5rem 7rem;
@@ -26,17 +26,22 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.nav-item:hover {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 50%;
+  svg{
+    fill: var(--mainTextColor);
+  }
+  
+  &:hover {
+    background: var(--mainTransparent);
+    border-radius: 50%;
+  }
 }
 
 .bundle {
   display: flex;
   align-items: center;
   flex-direction: row;
+
 }
 
 .bundle-a {
@@ -57,7 +62,11 @@ nav {
   user-select: none;
   svg {
     height: 2.5rem;
+    path {
+      fill: var(--mainTextColor);
+    }
   }
+  color: var(--mainTextColor);
 }
 
 .search {
@@ -65,7 +74,7 @@ nav {
   min-width: 100px;
   max-width: 720px;
   position: relative;
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--mainTransparent);
   border: 1px solid transparent;
   border-radius: 8px;
   height: 3rem;
@@ -73,7 +82,7 @@ nav {
   padding: 1rem;
   font-size: 16px;
   transition: all ease 300ms;
-
+  color: var(--mainTextColor);
   svg {
     height: 1.7rem;
   }
@@ -120,7 +129,7 @@ nav {
     display: none;
     position: absolute;
     top: 4rem;
-    right: -1.5rem;
+    right: 0;
     width: 250px;
     height: fit-content;
     background: #f9f9f9;
@@ -142,12 +151,12 @@ nav {
     .profile-menu-username{
       display: block;
       text-decoration: none;
-      color: #000;
+      color: #202124;
       font-size: 1.3rem;
       font-size: 600;
       padding: .5rem;
       text-align: center;
-      border-bottom: solid 2.5px #666;
+      border-bottom: solid 2.5px #202124;
       &:hover{
         background: rgba(0, 0, 0, .05);
       }
@@ -156,7 +165,7 @@ nav {
     .profile-menu-link{
       display: block;
       text-decoration: none;
-      color: #000;
+      color: #202124;
       padding: .5rem;
 
       &:hover{

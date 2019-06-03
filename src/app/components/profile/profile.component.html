@@ -1,5 +1,5 @@
 <div class="profile-wrapper" *ngIf="authService.userData as user">
-  <span>ACCOUNT</span>
+  <span routerLink="home"> &lt; ACCOUNT</span>
 
   <div class="profile-image">
     <img class="profile-photo" src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}" alt="{{user.displayName}}">
@@ -20,7 +20,7 @@
 
 
   <div>
-    <input class="sign-out" type="button" value="Sign Out">
+    <input class="sign-out" type="button" (click)="authService.signOut()" value="Sign Out">
   </div>
 
   <div class="terminate-account-confirmation">

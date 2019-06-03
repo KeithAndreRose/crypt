@@ -1,4 +1,5 @@
 .profile-wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,12 +9,24 @@
 }
 
 span{
-  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: fit-content;
   align-self: left;
   justify-self: left;
   text-align: left;
   font-weight: bold;
   font: 1.4rem;
+  padding: .2rem;
+  cursor: pointer;
+  transition: all ease 300ms;
+
+  &:hover{
+    background: #202124;
+    color: #fff;
+  }
+
 }
 
 div {
