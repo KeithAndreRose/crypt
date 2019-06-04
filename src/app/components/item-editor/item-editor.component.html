@@ -1,0 +1,7 @@
+<div class="item-editor-wrapper" (click)="closeItem($event)">
+  <div class="message-area">
+    <input class="message-title" type="text" value="{{item.title | decrypt}}" placeholder="Title">
+    <input class="message-tags" type="text" value="{{item.tags | decrypt}}" placeholder="Tags">
+    <textarea #textarea class="message-text" value="{{item.content | decrypt}}" (keydown)="textChange(textarea)" placeholder="Type here..."></textarea>
+  </div>
+</div>

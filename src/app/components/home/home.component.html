@@ -11,3 +11,4 @@
     <app-chest-item *ngFor="let item of chestItems" [item]="item" (itemEmitter)="itemEvent($event)" id={{item.id}} (click)="openItem(chestItem)" #chestItem ></app-chest-item>
   </main>
 </div>
+<app-item-editor *ngIf="focusedItem" [item]="focusedItem" (itemEditorEmitter)="itemEditorEvent($event)"></app-item-editor>

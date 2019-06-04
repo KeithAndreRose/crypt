@@ -20,6 +20,7 @@ import { CssThemeingService } from './services/css-themeing.service';
 import { ChestItemComponent } from './components/chest-item/chest-item.component';
 import { DecryptPipe } from './pipes/decrypt.pipe';
 import { ControlPanelComponent } from './components/control-panel/control-panel.component';
+import { ItemEditorComponent } from './components/item-editor/item-editor.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ControlPanelComponent } from './components/control-panel/control-panel.
     ProfileComponent,
     ChestItemComponent,
     DecryptPipe,
-    ControlPanelComponent
+    ControlPanelComponent,
+    ItemEditorComponent
   ],
   imports: [
     BrowserModule,

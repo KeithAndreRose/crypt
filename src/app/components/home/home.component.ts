@@ -25,8 +25,9 @@ export class HomeComponent implements OnInit {
   keyring: Array<any>;
   // The focused item
   focusedItem: Item = null;
-
+  // Laoding Indicator
   isLoading: boolean = true;
+
   constructor(
     public firebase: FirebaseService,
     public router: Router,
@@ -34,27 +35,31 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
-
+    // ! FIX/CLEAN UP URL NAVIAGTION.
     this.route.paramMap.subscribe(params => {
       if (params.has("key")) {
         this.getChest(params.get("key"));
       } else {
         this.getChest(this.defaultChest);
       }
-    });
+    }).unsubscribe();
 
     this.router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
-        console.log(e);
         const key = e.url.split("/")[2];
+        console.log(key);
         this.getChest(key);
+        const itemID = e.url.split("/")[3];
+        const item = this.chestItems.find(item => item.id == itemID)
+        console.log(item)
+        this.focusedItem = item;
       }
     });
 
+  }
 
-
-
+  ngOnDestroy(){
+    // TODO: Close subscription to prevent memory leaks
   }
 
   navigationBarEvent(event) {
@@ -75,11 +80,22 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  itemEditorEvent(event) {
+    const method = event.method;
+    switch (method) {
+      case "close item":
+        this.focusedItem = null;
+        this.router.navigate(["home", this.currentChest]);
+        console.log('Closing item')
+        break;
+    }
+  }
+
   deleteItem(item: Item) {}
 
   getChest(key) {
     this.focusedItem = null;
-    this.router.navigate(["home", key]);
+    // this.router.navigate(["home", key]);
     // TODO: NAVIGATE BY URL;
     if (key === this.currentChest) return;
     this.currentChest = key;
