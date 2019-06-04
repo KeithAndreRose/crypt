@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -10,7 +11,7 @@ export class MainMenuComponent implements OnInit {
 
   keyring = [];
 
-  constructor(public firebase: FirebaseService) { }
+  constructor(public firebase: FirebaseService, public authService: AuthService) { }
 
   ngOnInit() {
     this.getKeyring();

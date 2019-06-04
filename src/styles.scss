@@ -4,10 +4,11 @@
 :root{
   --mainAccent: #fff;
   --mainTextColor: #202124;
+  --mainFont: 'Helvetica';
 }
 
 body {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: var(--mainFont);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;

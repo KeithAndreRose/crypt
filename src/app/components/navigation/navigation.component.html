@@ -10,7 +10,7 @@
       </p>
     </div>
   </div>
-  <input class="search" type="text" placeholder="Search">
+  <input class="search" type="text" placeholder="Search" value="{{chestKey}}" (keyup.enter)="search(input.value)" #input>
   <div class="bundle bundle-b">
     <div class="refresh nav-item">
       <svg viewBox="0 0 6.3499999 6.3500002" ><g transform="translate(0,-290.64999)"><path d="m 5.0224593,291.44221 a 0.26460979,0.26460979 0 0 0 -0.2599301,0.26769 v 0.34985 c -0.43008,-0.38777 -0.9923299,-0.6134 -1.5880199,-0.6134 -1.3119499,0 -2.38072993,1.06877 -2.38072993,2.38073 0,1.31196 1.06878003,2.38073 2.38072993,2.38073 1.31196,0 2.3807301,-1.06877 2.3807301,-2.38073 a 0.26452646,0.26452646 0 1 0 -0.5270903,0 c 0,1.02606 -0.8275799,1.85157 -1.8536398,1.85157 -1.0260599,0 -1.8515599,-0.82551 -1.8515599,-1.85157 0,-1.02606 0.8255,-1.85157 1.8515599,-1.85157 0.4897601,0 0.9478401,0.19621 1.2882999,0.52917 h -0.493 a 0.26484199,0.26484199 0 1 0 0,0.52968 h 1.0562701 a 0.26460979,0.26460979 0 0 0 0.26562,-0.26613 v -1.05833 a 0.26460979,0.26460979 0 0 0 -0.26924,-0.26769 z"/></g></svg>
@@ -34,7 +34,7 @@
           <a class="profile-menu-username" *ngIf="authService.userData as user" routerLink="../profile">{{user.displayName}}</a>
           <a class="profile-menu-link" (click)="authService.googleAuth()">Via Google</a>
           <a class="profile-menu-link" >Make A Post</a>
-          <a class="profile-menu-link">Settings</a>
+          <a class="profile-menu-link" routerLink="../controlpanel">Control Panel</a>
           <a class="profile-menu-link" (click)="authService.signOut()">Sign Out</a>
         </div>
     </div>

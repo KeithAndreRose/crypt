@@ -5,22 +5,24 @@ import { theme } from "../models/theme";
   providedIn: 'root'
 })
 export class CssThemeingService {
-  colorTheme = 'light';
+  themeName = 'light';
+  activeTheme;
 
   constructor() {
     // TODO: parse a saved theme state
-    this.applyTheme(theme[this.colorTheme])
+    this.applyTheme(theme[this.themeName])
   }
   
   toggleTheme(){
-    console.log('toggling theme')
-    this.colorTheme = this.colorTheme === 'light' ? 'dark' : 'light';
-    this.applyTheme(theme[this.colorTheme]);
+    this.themeName = this.themeName === 'light' ? 'dark' : 'light';
+    this.applyTheme(theme[this.themeName]);
   }
   
   applyTheme(theme){ 
+    this.activeTheme = theme;
     document.documentElement.style.setProperty('--mainAccent', theme['mainAccent'])
     document.documentElement.style.setProperty('--mainTextColor', theme['mainTextColor'])
     document.documentElement.style.setProperty('--mainTransparent', theme['mainTransparent'])
+    document.documentElement.style.setProperty('--mainFont', theme['mainFont'])
   }
 }

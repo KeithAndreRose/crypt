@@ -19,6 +19,7 @@ import { FirebaseService } from './services/firebase.service';
 import { CssThemeingService } from './services/css-themeing.service';
 import { ChestItemComponent } from './components/chest-item/chest-item.component';
 import { DecryptPipe } from './pipes/decrypt.pipe';
+import { ControlPanelComponent } from './components/control-panel/control-panel.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DecryptPipe } from './pipes/decrypt.pipe';
     HomeComponent,
     ProfileComponent,
     ChestItemComponent,
-    DecryptPipe
+    DecryptPipe,
+    ControlPanelComponent
   ],
   imports: [
     BrowserModule,

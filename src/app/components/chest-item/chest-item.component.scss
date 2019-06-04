@@ -1,6 +1,8 @@
 .item-card {
   padding: 1rem;
   min-width: 240px;
+  // width: 240px;
+  max-width: 100%;
   height: 240px;
   border-radius: 8px;
   background: var(--mainTextColor);
