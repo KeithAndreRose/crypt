@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Item } from 'src/app/models/item';
+import { ItemManagerService } from 'src/app/services/item-manager.service';
 
 @Component({
   selector: 'app-item-editor',
@@ -8,21 +9,17 @@ import { Item } from 'src/app/models/item';
 })
 export class ItemEditorComponent implements OnInit {
   @Input() item:Item;
-  @Output() itemEditorEmitter = new EventEmitter<Object>();
   
-  constructor() { }
+  constructor(public itemManager:ItemManagerService) { }
 
   ngOnInit() {
   }
 
 
-  closeItem($event){
+  exit($event){
+    // Send to item manager
     if(($event.target as HTMLElement).classList.contains('item-editor-wrapper')){
-      const eventPacket = {
-        method: "close item",
-        data: { item: this.item }
-      };
-      this.itemEditorEmitter.emit(eventPacket)
+      this.itemManager.unfocusItem();
     }
   }
 

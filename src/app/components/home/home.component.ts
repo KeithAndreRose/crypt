@@ -1,4 +1,3 @@
-import { ChestItemComponent } from "./../chest-item/chest-item.component";
 import {
   Router,
   ActivatedRoute,
@@ -8,6 +7,8 @@ import {
 import { Component, OnInit } from "@angular/core";
 import { Item } from "src/app/models/item";
 import { FirebaseService } from "src/app/services/firebase.service";
+import { ItemManagerService } from 'src/app/services/item-manager.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: "app-home",
@@ -16,106 +17,82 @@ import { FirebaseService } from "src/app/services/firebase.service";
 })
 export class HomeComponent implements OnInit {
   // Default Chest
-  defaultChest: String = "Me";
-  // Current Chest Key
-  currentChest: String;
-  // Item Bin
-  chestItems: Item[] = [];
-  // Keyring
-  keyring: Array<any>;
-  // The focused item
-  focusedItem: Item = null;
-  // Laoding Indicator
-  isLoading: boolean = true;
+  defaultKey: String = "Me";
+
+
+  currentItemID;
+
+  items: Item[];
+
+  itemChest: Subscription;
+  urlParams: Subscription;
+  urlEvents: Subscription;
+
 
   constructor(
     public firebase: FirebaseService,
     public router: Router,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public itemManager:ItemManagerService
   ) {}
 
   ngOnInit() {
-    // ! FIX/CLEAN UP URL NAVIAGTION.
-    this.route.paramMap.subscribe(params => {
-      if (params.has("key")) {
-        this.getChest(params.get("key"));
-      } else {
-        this.getChest(this.defaultChest);
+    this.urlParams =this.route.paramMap.subscribe(params => {
+      if (params.has("key"))
+        this.itemManager.currentKey = params.get("key");
+      else{
+        this.itemManager.currentKey = this.defaultKey;
+        this.router.navigate(['app',this.itemManager.currentKey]);
       }
-    }).unsubscribe();
+      if (params.has("id"))
+        this.currentItemID = params.get('id')
+      this.getItems(this.itemManager.currentKey)
+    });
 
-    this.router.events.subscribe(e => {
+    this.urlEvents = this.router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
-        const key = e.url.split("/")[2];
-        console.log(key);
-        this.getChest(key);
-        const itemID = e.url.split("/")[3];
-        const item = this.chestItems.find(item => item.id == itemID)
-        console.log(item)
-        this.focusedItem = item;
+        this.currentItemID = e.url.split("/")[3];
+        this.checkItemFocus()
       }
     });
 
   }
 
   ngOnDestroy(){
-    // TODO: Close subscription to prevent memory leaks
+    this.urlEvents.unsubscribe();
+    this.urlParams.unsubscribe();
+    this.itemChest.unsubscribe();
   }
 
-  navigationBarEvent(event) {
-    const method = event.method;
-    switch (method) {
-      case "searchKey":
-        this.getChest(event.data.chestKey);
-        break;
-    }
+  openItem(item){
+    console.log(item.id)
+    const itemKey = item.id;
+    this.router.navigate(["app", this.itemManager.currentKey, itemKey]);
   }
 
-  itemEvent(event) {
-    const method = event.method;
-    switch (method) {
-      case "delete":
-        this.deleteItem(event.data.item);
-        break;
-    }
-  }
-
-  itemEditorEvent(event) {
-    const method = event.method;
-    switch (method) {
-      case "close item":
-        this.focusedItem = null;
-        this.router.navigate(["home", this.currentChest]);
-        console.log('Closing item')
-        break;
-    }
-  }
-
-  deleteItem(item: Item) {}
-
-  getChest(key) {
-    this.focusedItem = null;
-    // this.router.navigate(["home", key]);
-    // TODO: NAVIGATE BY URL;
-    if (key === this.currentChest) return;
-    this.currentChest = key;
-    this.isLoading = true;
-    this.firebase.getItems(this.currentChest).subscribe(data => {
-      console.log(data);
-      this.isLoading = false;
-      this.chestItems = data;
-      this.chestItems.reverse();
+  getItems(key){
+    this.itemManager.currentKey = key;
+    console.log('Getting Items for:',key)
+    this.itemChest = this.firebase.getItems(key).subscribe(items => {
+      this.items = items.reverse();
+      this.checkItemFocus()
     });
+  }
+  
+  checkItemFocus(){
+    if(!this.currentItemID){
+      return this.itemManager.unfocusItem();
+    }
+    const item = this.items.find(item => item.id == this.currentItemID)
+    if(item)
+      this.itemManager.focusItem(item)
+    else
+      this.itemManager.unfocusItem()
   }
 
   textChange(textarea: HTMLTextAreaElement) {
     console.log(textarea.scrollHeight);
     textarea.style.height = "200px";
     textarea.style.height = textarea.scrollHeight + "px";
-  }
-
-  openItem(chestItem: ChestItemComponent) {
-    const itemKey = chestItem.item.id;
-    this.router.navigate(["home", this.currentChest, itemKey]);
   }
 }

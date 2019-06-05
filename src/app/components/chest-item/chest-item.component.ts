@@ -1,3 +1,4 @@
+import { ItemManagerService } from './../../services/item-manager.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Item } from 'src/app/models/item';
 
@@ -10,20 +11,15 @@ export class ChestItemComponent implements OnInit {
   @Input() item:Item;
   @Output() itemEmitter = new EventEmitter<Object>();
   
-  constructor() { }
+  constructor(public itemManager:ItemManagerService) { }
 
   ngOnInit() {
   }
 
   archiveItem(){
   }
-  
+
   deleteItem(){
-    const eventPacket = {
-      method: "delete",
-      data: { item: this.item }
-    };
-    this.itemEmitter.emit(eventPacket);
   }
   
 

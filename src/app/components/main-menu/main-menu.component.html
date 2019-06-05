@@ -5,7 +5,7 @@
     </div>
     <p class="profile-menu-username" *ngIf="authService.userData as user">{{user.displayName}}</p>
   </div>
-  <div class="menu-item" *ngFor="let key of keyring" routerLink="home/{{key}}" routerLinkActive='active'>
+  <div class="menu-item" *ngFor="let key of keyring" routerLink="app/{{key}}" routerLinkActive='active'>
     <div class="menu-item-icon"></div>
     <p class="menu-item-label">{{key}}</p>
   </div>

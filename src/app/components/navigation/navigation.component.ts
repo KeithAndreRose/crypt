@@ -14,12 +14,15 @@ export class NavigationComponent implements OnInit {
   constructor(public router:Router, public authService:AuthService, public cssTheme:CssThemeingService) { }
 
   ngOnInit() {
+
+    // TODO: Prevent memory leaking
     this.router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
         const key = e.url.split('/')[2];
         this.chestKey = key;
       }
     })
+    
   }
 
   toggleMainMenu(){
@@ -37,20 +40,8 @@ export class NavigationComponent implements OnInit {
     return this.cssTheme.toggleTheme();
   }
 
-  
-  // TODO: A key search must navigate to the url (NOT EVENT BUBBLING)
-
   search(input:string){
-    this.router.navigateByUrl(`home/${input}`)
+    this.router.navigate(['app',input])
   }
-
-  // search(input: HTMLInputElement) {
-  //   this.chestKey = input.value;
-  //   const eventPacket = {
-  //     method: "searchKey",
-  //     data: { chestKey: this.chestKey }
-  //   };
-  //   this.navEvent.emit(eventPacket);
-  // }
 
 }

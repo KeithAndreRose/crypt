@@ -1,5 +1,5 @@
 <div class="home-wrapper">
-  <span>CHEST | {{currentChest}} </span>
+  <span>CHEST | {{currentKey | uppercase}} </span>
   <header>
     <div class="message-area">
       <input class="message-title" type="text" placeholder="Title">
@@ -8,7 +8,7 @@
     </div>
   </header>
   <main>
-    <app-chest-item *ngFor="let item of chestItems" [item]="item" (itemEmitter)="itemEvent($event)" id={{item.id}} (click)="openItem(chestItem)" #chestItem ></app-chest-item>
+    <app-chest-item *ngFor="let item of items" [item]="item" id={{item.id}} (click)="openItem(item)"></app-chest-item>
   </main>
 </div>
-<app-item-editor *ngIf="focusedItem" [item]="focusedItem" (itemEditorEmitter)="itemEditorEvent($event)"></app-item-editor>
+<app-item-editor *ngIf="itemManager.focusedItem" [item]="itemManager.focusedItem"></app-item-editor>

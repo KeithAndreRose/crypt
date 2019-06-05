@@ -21,6 +21,7 @@ import { ChestItemComponent } from './components/chest-item/chest-item.component
 import { DecryptPipe } from './pipes/decrypt.pipe';
 import { ControlPanelComponent } from './components/control-panel/control-panel.component';
 import { ItemEditorComponent } from './components/item-editor/item-editor.component';
+import { ItemManagerService } from './services/item-manager.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ItemEditorComponent } from './components/item-editor/item-editor.compon
   providers: [
     AuthService,
     FirebaseService,
-    CssThemeingService
+    CssThemeingService,
+    ItemManagerService
   ],
   bootstrap: [AppComponent]
 })

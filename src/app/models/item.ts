@@ -5,3 +5,5 @@ export interface Item {
   content?: string;
   tags?: string;
 }
+// Add 'owner'
+// Add 'locationKey'

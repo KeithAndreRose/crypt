@@ -8,16 +8,15 @@ import { ControlPanelComponent } from './components/control-panel/control-panel.
 
 
 const routes: Routes = [
-  {path:'', redirectTo:'home', pathMatch:'full'},
-  {path:'home',
+  {path:'', redirectTo:'app', pathMatch:'full'},
+  {path:'app',
   children:[
-    {path: ':key', component:HomeComponent},
     {path: '**', component:HomeComponent}
   ]
 },
   {path:'profile', component:ProfileComponent},
   {path:'controlpanel', component:ControlPanelComponent},
-  {path:'**', redirectTo:'home', pathMatch:'full'},
+  {path:'**', redirectTo:'app', pathMatch:'full'},
 
 ];
 
