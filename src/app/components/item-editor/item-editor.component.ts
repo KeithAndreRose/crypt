@@ -15,11 +15,12 @@ export class ItemEditorComponent implements OnInit {
   ngOnInit() {
   }
 
-
-  exit($event){
+  exit($event,editedObject){
     // Send to item manager
     if(($event.target as HTMLElement).classList.contains('item-editor-wrapper')){
-      this.itemManager.unfocusItem();
+      // console.log(itemObject)
+      this.itemManager.updateItem(this.item, editedObject)
+      // this.itemManager.unfocusItem();
     }
   }
 

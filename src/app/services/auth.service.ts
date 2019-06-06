@@ -15,6 +15,7 @@ import * as EC from "elliptic/lib/elliptic/ec";
 export class AuthService {
   userData: any;
   secretKey: string = 'wasd';
+  func: string = 'v0';
 
   constructor(
     public afs: AngularFirestore,

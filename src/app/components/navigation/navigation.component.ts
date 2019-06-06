@@ -33,7 +33,7 @@ export class NavigationComponent implements OnInit {
     if(document.body.clientWidth < 701)
       this.toggleMainMenu();
     else
-      this.router.navigateByUrl('home');
+      this.router.navigate(['app']);
   }
 
   toggleTheme(){

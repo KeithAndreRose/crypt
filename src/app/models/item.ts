@@ -4,6 +4,8 @@ export interface Item {
   title?: string;
   content?: string;
   tags?: string;
+  owner?: string;
+  locationKey?:string;
+  lastModified?:string;
+  func?: string;
 }
-// Add 'owner'
-// Add 'locationKey'

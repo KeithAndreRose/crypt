@@ -8,8 +8,29 @@
   background: var(--mainTextColor);
   transition: all ease 300ms;
   color: var(--mainAccent);
+  cursor: pointer;
+  display:flex;
+  flex-direction: column;
+}
+
+.item-title{
+  position: relative;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  cursor: pointer;
+  width: 100%;
+  min-height: 1.5rem;
+  height: 1.5rem;
+  max-height: 2.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.item-content{
+  position: relative;
+  overflow: hidden;
+  // white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+  // height: auto;
 }

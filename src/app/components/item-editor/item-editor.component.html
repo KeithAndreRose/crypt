@@ -1,7 +1,7 @@
-<div class="item-editor-wrapper" (click)="exit($event)">
+<div class="item-editor-wrapper" (click)="exit($event, {title: title.value, tags:tags.value, content:content.value})">
   <div class="message-area">
-    <input class="message-title" type="text" value="{{item.title | decrypt}}" placeholder="Title">
-    <input class="message-tags" type="text" value="{{item.tags | decrypt}}" placeholder="Tags">
-    <textarea #textarea class="message-text" value="{{item.content | decrypt}}" placeholder="Type here..."></textarea>
+    <input class="message-title" type="text" value="{{item.title | decrypt}}" placeholder="Title" #title>
+    <input class="message-tags" type="text" value="{{item.tags | decrypt}}" placeholder="Tags" #tags>
+    <textarea #textarea class="message-text" value="{{item.content | decrypt}}" placeholder="Type here..." #content></textarea>
   </div>
 </div>

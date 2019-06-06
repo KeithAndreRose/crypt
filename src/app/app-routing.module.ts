@@ -11,6 +11,8 @@ const routes: Routes = [
   {path:'', redirectTo:'app', pathMatch:'full'},
   {path:'app',
   children:[
+    {path: ':key/:id', component:HomeComponent},
+    {path: ':key', component:HomeComponent},
     {path: '**', component:HomeComponent}
   ]
 },

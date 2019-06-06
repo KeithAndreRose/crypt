@@ -1,14 +1,14 @@
 <div class="home-wrapper">
   <span>CHEST | {{itemManager.currentKey | uppercase}} </span>
   <header>
-    <div class="message-area">
-      <input class="message-title" type="text" placeholder="Title">
-      <input class="message-tags" type="text" placeholder="Tags">
-      <textarea #textarea class="message-text" (keydown)="textChange(textarea)" placeholder="Type here..."></textarea>
+    <div class="message-area" (focusout)="saveItem($event,title, tags, content)">
+      <input class="message-title" type="text" placeholder="Title" #title>
+      <input class="message-tags" type="text" placeholder="Tags" #tags>
+      <textarea #textarea class="message-text" (keydown)="textChange(textarea)"  placeholder="Type here..." #content></textarea>
     </div>
   </header>
   <main>
-    <app-chest-item *ngFor="let item of items" [item]="item" id={{item.id}} (click)="openItem(item)"></app-chest-item>
+    <app-chest-item *ngFor="let item of itemManager.items" [item]="item" id={{item.id}} (click)="openItem(item)"></app-chest-item>
   </main>
 </div>
 <app-item-editor *ngIf="itemManager.focusedItem" [item]="itemManager.focusedItem"></app-item-editor>
