@@ -22,7 +22,6 @@ export class ItemManagerService implements OnInit {
 
   constructor(public router: Router, public route: ActivatedRoute, public auth:AuthService, public db:FirebaseService) {
     this.urlParams = this.route.paramMap.subscribe(params => {
-      console.log(params)
       if (params.has("key")) this.currentKey = params.get("key");
       else {
         this.currentKey = this.defaultKey;
@@ -34,8 +33,8 @@ export class ItemManagerService implements OnInit {
   
     this.urlEvents = this.router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
-        console.log(e)
         this.currentItemID = e.url.split("/")[3];
+        // TODO: Prevent excessive db read calls if already on page
         this.getItems(e.url.split("/")[2] ? e.url.split("/")[2] : this.defaultKey);
       }
     });
@@ -66,6 +65,12 @@ export class ItemManagerService implements OnInit {
       this.items = items.reverse();
       this.checkItemFocus();
     });
+  }
+
+  deleteItem(item:Item){
+    this.db.deleteItem(item.id, item.locationKey)
+      .then(()=> console.log(`Deleted item ${item.id}`))
+      .catch(e => console.error(e));
   }
 
   checkItemFocus() {

@@ -41,6 +41,8 @@ export class HomeComponent implements OnInit {
         tags: tags.value,
         content: content.value
       };
+      if(item.title === '' && item.tags === '' && item.content === '')
+        return console.log('Empty item will not be saved')
       this.itemManager.updateItem(this.itemManager.createItem(), item);
       title.value = "";
       tags.value = "";

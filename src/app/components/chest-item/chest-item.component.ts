@@ -19,7 +19,8 @@ export class ChestItemComponent implements OnInit {
   archiveItem(){
   }
 
-  deleteItem(){
+  delete(item:Item){
+    this.itemManager.deleteItem(item);
   }
   
 

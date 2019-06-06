@@ -7,6 +7,11 @@
 
   &.open{
     width: 250px;
+
+    .menu-container{
+      position: fixed;
+      width: 250px;
+    }
   }
 
 }
@@ -31,15 +36,25 @@
     background: var(--mainTransparent);
   }
 
-  .menu-item-icon{
+  .menu-item-icon,
+  .menu-item-key-icon{
     border-radius: 50%;
     width: 1.5rem;
     height: 1.5rem;
     overflow: hidden;
     // background: var(--mainTextColor);
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
     svg{
       fill: var(--mainTextColor);
+    }
+  }
+
+  .menu-item-key-icon{
+    svg{
+      position: absolute;
+      height: 30px;
     }
   }
 

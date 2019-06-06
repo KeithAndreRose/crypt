@@ -1,4 +1,5 @@
 .item-card {
+  position: relative;
   padding: 1rem;
   min-width: 240px;
   // width: 240px;
@@ -11,6 +12,29 @@
   cursor: pointer;
   display:flex;
   flex-direction: column;
+
+  &:hover{
+    .item-delete{
+      display: flex;
+      justify-items: center;
+      align-items: center;
+    }
+  }
+
+}
+
+.item-delete{
+  position: absolute;
+  display: none;
+  top: -8px;
+  right: -8px;
+  background: #fff;
+  border-radius: 50%;
+  svg{
+    height: 22px;
+    stroke: #000;
+    stroke-width: 1.5px;
+  }
 }
 
 .item-title{

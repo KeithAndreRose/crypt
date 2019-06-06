@@ -1,5 +1,10 @@
 <div class="item-editor-wrapper" (click)="exit($event, {title: title.value, tags:tags.value, content:content.value})">
   <div class="message-area">
+    <div class="message-mobile-nav">
+      <div class="message-mobile-back" (click)="mobileExit({title: title.value, tags:tags.value, content:content.value})">
+        <svg viewBox="0 0 34 34"><path d="M17,33c8.84003,0,16-7.15997,16-16c0-8.83997-7.15997-16-16-16C8.17004,1,1,8.16003,1,17C1,25.84003,8.17004,33,17,33z    M9.33002,16.25l5-5c0.39001-0.38995,1.02002-0.38995,1.41003,0c0.38995,0.39001,0.38995,1.02002,0,1.41003l-3.29004,3.28998H24   c0.55005,0,1,0.45001,1,1c0,0.56-0.44995,1-1,1H12.45001L15.74005,21.25c0.38995,0.39001,0.38995,1.02002,0,1.41003   c-0.40564,0.40564-1.05963,0.3689-1.41003,0l-5-5C8.94,17.27002,8.94,16.64001,9.33002,16.25z"/></svg>
+      </div>
+    </div>
     <input class="message-title" type="text" value="{{item.title | decrypt}}" placeholder="Title" #title>
     <input class="message-tags" type="text" value="{{item.tags | decrypt}}" placeholder="Tags" #tags>
     <textarea #textarea class="message-text" value="{{item.content | decrypt}}" placeholder="Type here..." #content></textarea>

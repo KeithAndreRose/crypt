@@ -16,12 +16,14 @@ export class ItemEditorComponent implements OnInit {
   }
 
   exit($event,editedObject){
-    // Send to item manager
+    // Close it clicked behind editor
     if(($event.target as HTMLElement).classList.contains('item-editor-wrapper')){
-      // console.log(itemObject)
       this.itemManager.updateItem(this.item, editedObject)
-      // this.itemManager.unfocusItem();
     }
+  }
+
+  mobileExit(editedObject){
+    this.itemManager.updateItem(this.item, editedObject)
   }
 
 
