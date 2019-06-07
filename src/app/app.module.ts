@@ -22,6 +22,7 @@ import { DecryptPipe } from './pipes/decrypt.pipe';
 import { ControlPanelComponent } from './components/control-panel/control-panel.component';
 import { ItemEditorComponent } from './components/item-editor/item-editor.component';
 import { ItemManagerService } from './services/item-manager.service';
+import { PromoComponent } from './components/promo/promo.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ItemManagerService } from './services/item-manager.service';
     ChestItemComponent,
     DecryptPipe,
     ControlPanelComponent,
-    ItemEditorComponent
+    ItemEditorComponent,
+    PromoComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { Component, ElementRef } from '@angular/core';
 })
 export class AppComponent {
   title = 'ng-crypt-app';
+  hideNav = false;
 
   constructor(public elRef: ElementRef){
 

@@ -1,4 +1,4 @@
-<app-navigation (navEvent)="navEvent($event)" ></app-navigation>
+<app-navigation *ngIf="!hideNav" (navEvent)="navEvent($event)" ></app-navigation>
 <div class="container">
   <app-main-menu class="menu"></app-main-menu>
   <div class="main">

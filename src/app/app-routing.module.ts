@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { ControlPanelComponent } from './components/control-panel/control-panel.component';
+import { PromoComponent } from './components/promo/promo.component';
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
 },
   {path:'profile', component:ProfileComponent},
   {path:'controlpanel', component:ControlPanelComponent},
+  {path:'promo', component:PromoComponent},
   {path:'**', redirectTo:'app', pathMatch:'full'},
 
 ];
