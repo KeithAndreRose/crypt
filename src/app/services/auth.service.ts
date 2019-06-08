@@ -8,6 +8,7 @@ import {
   AngularFirestoreDocument
 } from "@angular/fire/firestore";
 import * as EC from "elliptic/lib/elliptic/ec";
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: "root"
@@ -20,7 +21,8 @@ export class AuthService {
   constructor(
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
-    public router: Router
+    public router: Router,
+    public notification:NotificationService,
   ) {
     /* Saving user data in localstorage when logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(user => {
@@ -59,18 +61,27 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithPopup(provider)
       .then(result => {
+        console.log(result)
         this.getAuth;
+        this.router.navigate(['app']);
+        this.notification.notify('You have signed in');
         // this.ngZone.run(() => this.router.navigate(['notebook']))
         // this.SetUserData(result.user);
       })
-      .catch(error => window.alert(error));
+      .catch(error => {
+        this.notification.notify(error);
+        window.alert(error);
+      });
   }
 
   // Sign out
   signOut() {
-    this.router.navigate(['app']);
-    this.userData = null;
-    return this.afAuth.auth.signOut();
+    this.afAuth.auth.signOut()
+      .then(e => {
+        this.userData = null;
+        this.router.navigate(['app']);
+        return this.notification.notify('You have been signed out');
+      });
   }
 
   // Generates a User Model to firestore on creation

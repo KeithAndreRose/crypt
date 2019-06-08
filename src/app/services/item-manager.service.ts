@@ -33,26 +33,26 @@ export class ItemManagerService implements OnInit {
     public db: FirebaseService,
     public notification: NotificationService
   ) {
-    this.urlParams = this.route.paramMap.subscribe(params => {
-      if (params.has("key")) this.currentKey = params.get("key");
-      else {
-        this.currentKey = this.defaultKey;
-        this.router.navigate(["app", this.currentKey]);
-      }
-      if (params.has("id")) this.currentItemID = params.get("id");
-      this.getItems(this.currentKey);
-    });
-
-    this.urlEvents = this.router.events.subscribe(e => {
-      if (e instanceof NavigationEnd) {
-        this.currentItemID = e.url.split("/")[3];
-        // TODO: Prevent excessive db read calls if already on page
-        this.getItems(
-          e.url.split("/")[2] ? e.url.split("/")[2] : this.defaultKey
-        );
-      }
-    });
-  }
+      this.urlParams = this.route.paramMap.subscribe(params => {
+          if (params.has("key")) this.currentKey = params.get("key");
+          else {
+            this.currentKey = this.defaultKey;
+          this.router.navigate(["app", this.currentKey]);
+        }
+        if (params.has("id")) this.currentItemID = params.get("id");
+        this.getItems(this.currentKey);
+      });
+      
+      this.urlEvents = this.router.events.subscribe(e => {
+        if (e instanceof NavigationEnd) {
+          this.currentItemID = e.url.split("/")[3];
+          // TODO: Prevent excessive db read calls if already on page
+          this.getItems(
+            e.url.split("/")[2] ? e.url.split("/")[2] : this.defaultKey
+            );
+          }
+      });
+    }
 
   ngOnInit() {}
 

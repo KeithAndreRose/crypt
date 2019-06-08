@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { ItemManagerService } from 'src/app/services/item-manager.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,11 +10,18 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ProfileComponent implements OnInit {
   username = 'test';
 
-  constructor(public authService:AuthService) { 
+  constructor(
+    public authService:AuthService, 
+    public manager: ItemManagerService
+    ) { 
   }
 
   ngOnInit() {
     // IF no profile. Redirect to home
+  }
+
+  signOut(){
+    this.authService.signOut();
   }
 
   terminateAccount(username:string, consent:string, self:HTMLButtonElement){

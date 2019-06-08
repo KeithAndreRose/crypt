@@ -32,9 +32,9 @@
       <div class="profile-menu">
           <span></span>
           <a class="profile-menu-username" *ngIf="authService.userData as user" routerLink="../profile">{{user.displayName}}</a>
-          <a class="profile-menu-link" (click)="authService.googleAuth()">Sign-in via Google</a>
+          <a class="profile-menu-link" *ngIf="!authService.userData as user"  (click)="authService.googleAuth()">Sign-in via Google</a>
           <a class="profile-menu-link" *ngIf="authService.userData as user" routerLink="../controlpanel">Control Panel</a>
-          <a class="profile-menu-link" *ngIf="authService.userData as user" (click)="authService.signOut()">Sign Out</a>
+          <a class="profile-menu-link" *ngIf="authService.userData as user" (click)="signOut()">Sign Out</a>
         </div>
     </div>
   </div>

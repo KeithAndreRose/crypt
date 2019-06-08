@@ -5,8 +5,7 @@
     <router-outlet></router-outlet>
   </div>
   <div class="aux">
+    <!-- TODO: Move notifcation wall to navigation -->
     <app-notification *ngFor="let notice of notification.log" [notice]="notice"></app-notification>
   </div>
-</div>
-<div class="notifications">
 </div>

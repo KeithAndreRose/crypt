@@ -19,8 +19,8 @@ export class MainMenuComponent implements OnInit {
   }
 
   getKeyring(){
-    if(!this.auth.isLoggedIn)
-      return this.notification.notify('NOT SIGN IN')
+    if(!this.auth.userData)
+      return
     this.firebase.getKeyring().subscribe(data => {
       if(data){
         this.keyring = (data as any).keyring
