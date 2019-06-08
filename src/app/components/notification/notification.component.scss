@@ -1,0 +1,25 @@
+.notification-wrapper{
+  position: relative;
+  width: 100%;
+  height: 1.5rem;
+  transform: translateX(300px);
+  margin-bottom: .2rem;
+  opacity: 1;
+  background: rgb(0, 0, 0, .8);
+  overflow: hidden;
+  justify-self: flex-end;
+  align-self: flex-end;
+  transition: all ease 300ms;
+  padding-left: .25rem;
+  color: rgb(255, 255, 255,.8);
+  cursor: pointer;
+  
+  &:hover{
+    background: rgb(0, 0, 0, 1);
+    color: #fff;
+  }
+  
+  &.active{
+    transform: translateX(0);
+  }
+}

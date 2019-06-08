@@ -29,6 +29,7 @@ export class AuthService {
         localStorage.setItem("user", JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem("user"));
       } else {
+        this.userData = null;
         localStorage.setItem("user", null);
         JSON.parse(localStorage.getItem("user"));
       }
@@ -67,7 +68,8 @@ export class AuthService {
 
   // Sign out
   signOut() {
-    this.router.navigateByUrl("")
+    this.router.navigate(['app']);
+    this.userData = null;
     return this.afAuth.auth.signOut();
   }
 

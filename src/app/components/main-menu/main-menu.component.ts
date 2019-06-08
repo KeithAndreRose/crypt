@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -11,13 +12,15 @@ export class MainMenuComponent implements OnInit {
 
   keyring = [];
 
-  constructor(public firebase: FirebaseService, public authService: AuthService) { }
+  constructor(public firebase: FirebaseService, public auth: AuthService, public notification:NotificationService) { }
 
   ngOnInit() {
     this.getKeyring();
   }
 
   getKeyring(){
+    if(!this.auth.isLoggedIn)
+      return this.notification.notify('NOT SIGN IN')
     this.firebase.getKeyring().subscribe(data => {
       if(data){
         this.keyring = (data as any).keyring

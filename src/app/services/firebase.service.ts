@@ -14,12 +14,7 @@ export class FirebaseService {
   }
 
   get verifyUser(){
-    if(this.authService.isLoggedIn)
-      return this.user = this.authService.getAuth;
-    else{
-      window.alert('User Data not found');
-      return false;
-    }
+    return this.authService.getAuth;
   }
 
   getKeyring(){

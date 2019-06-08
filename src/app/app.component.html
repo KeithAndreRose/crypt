@@ -4,5 +4,9 @@
   <div class="main">
     <router-outlet></router-outlet>
   </div>
-  <div class="aux"></div>
+  <div class="aux">
+    <app-notification *ngFor="let notice of notification.log" [notice]="notice"></app-notification>
+  </div>
+</div>
+<div class="notifications">
 </div>

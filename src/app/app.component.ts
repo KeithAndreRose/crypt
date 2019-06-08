@@ -1,4 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
+import { NotificationService } from './services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,11 @@ export class AppComponent {
   title = 'ng-crypt-app';
   hideNav = false;
 
-  constructor(public elRef: ElementRef){
+  constructor(public elRef: ElementRef, public notification:NotificationService){
 
   }
+
+  // TODO: Ask would you like a tutorial
 
   navEvent(event){
     switch(event.method){

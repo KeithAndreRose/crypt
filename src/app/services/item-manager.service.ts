@@ -1,12 +1,18 @@
-import { FirebaseService } from './firebase.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { Router, ActivatedRoute, ParamMap, NavigationEnd} from '@angular/router';
-import { Injectable, OnInit } from '@angular/core';
-import { Item } from '../models/item';
-import { Rabbit } from 'crypto-js'
-import { Subscription } from 'rxjs';
+import { FirebaseService } from "./firebase.service";
+import { AuthService } from "src/app/services/auth.service";
+import {
+  Router,
+  ActivatedRoute,
+  ParamMap,
+  NavigationEnd
+} from "@angular/router";
+import { Injectable, OnInit } from "@angular/core";
+import { Item } from "../models/item";
+import { Rabbit } from "crypto-js";
+import { Subscription } from "rxjs";
+import { NotificationService } from './notification.service';
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ItemManagerService implements OnInit {
   defaultKey: String = "Me";
@@ -20,7 +26,13 @@ export class ItemManagerService implements OnInit {
   urlParams: Subscription;
   urlEvents: Subscription;
 
-  constructor(public router: Router, public route: ActivatedRoute, public auth:AuthService, public db:FirebaseService) {
+  constructor(
+    public router: Router,
+    public route: ActivatedRoute,
+    public auth: AuthService,
+    public db: FirebaseService,
+    public notification: NotificationService
+  ) {
     this.urlParams = this.route.paramMap.subscribe(params => {
       if (params.has("key")) this.currentKey = params.get("key");
       else {
@@ -30,18 +42,19 @@ export class ItemManagerService implements OnInit {
       if (params.has("id")) this.currentItemID = params.get("id");
       this.getItems(this.currentKey);
     });
-  
+
     this.urlEvents = this.router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
         this.currentItemID = e.url.split("/")[3];
         // TODO: Prevent excessive db read calls if already on page
-        this.getItems(e.url.split("/")[2] ? e.url.split("/")[2] : this.defaultKey);
+        this.getItems(
+          e.url.split("/")[2] ? e.url.split("/")[2] : this.defaultKey
+        );
       }
     });
   }
 
-  ngOnInit(){
-  }
+  ngOnInit() {}
 
   ngOnDestroy() {
     this.urlEvents.unsubscribe();
@@ -49,27 +62,31 @@ export class ItemManagerService implements OnInit {
     this.itemChest.unsubscribe();
   }
 
-  focusItem(item){
+  focusItem(item) {
     this.focusedItem = item;
   }
-  
-  unfocusItem(){
+
+  unfocusItem() {
     this.focusedItem = null;
-    this.router.navigate(['app',this.currentKey])
+    this.router.navigate(["app", this.currentKey]);
   }
 
   getItems(key) {
+    if (!this.auth.isLoggedIn) return this.notification.notify('NOT SIGN IN');
     this.currentKey = key;
     console.log("Getting Items for:", key);
     this.itemChest = this.db.getItems(key).subscribe(items => {
-      this.items = items.reverse();
-      this.checkItemFocus();
+      if (items) {
+        this.items = items.reverse();
+        this.checkItemFocus();
+      }
     });
   }
 
-  deleteItem(item:Item){
-    this.db.deleteItem(item.id, item.locationKey)
-      .then(()=> console.log(`Deleted item ${item.id}`))
+  deleteItem(item: Item) {
+    this.db
+      .deleteItem(item.id, item.locationKey)
+      .then(() => console.log(`Deleted item ${item.id}`))
       .catch(e => console.error(e));
   }
 
@@ -82,18 +99,27 @@ export class ItemManagerService implements OnInit {
     else this.unfocusItem();
   }
 
-  updateItem(refItem,updatedItem:Item){
-    const item:Item = this.stampItem(refItem,updatedItem)
+  updateItem(refItem, updatedItem: Item) {
+    const item: Item = this.stampItem(refItem, updatedItem);
     // console.log(item);
     this.db.updateItem(item, this.currentKey);
     this.unfocusItem();
   }
 
-  stampItem(itemBase:Item, newItem:Item){
-    const itemCopy:Item = itemBase;
-    itemCopy.title = Rabbit.encrypt(newItem.title, this.auth.secretKey).toString();
-    itemCopy.tags = Rabbit.encrypt(newItem.tags, this.auth.secretKey).toString();
-    itemCopy.content = Rabbit.encrypt(newItem.content, this.auth.secretKey).toString();
+  stampItem(itemBase: Item, newItem: Item) {
+    const itemCopy: Item = itemBase;
+    itemCopy.title = Rabbit.encrypt(
+      newItem.title,
+      this.auth.secretKey
+    ).toString();
+    itemCopy.tags = Rabbit.encrypt(
+      newItem.tags,
+      this.auth.secretKey
+    ).toString();
+    itemCopy.content = Rabbit.encrypt(
+      newItem.content,
+      this.auth.secretKey
+    ).toString();
     itemCopy.locationKey = this.currentKey;
     itemCopy.lastModified = Date();
     itemCopy.owner = this.auth.userData.uid;
@@ -102,10 +128,8 @@ export class ItemManagerService implements OnInit {
   }
 
   createItem() {
-    const date = Date()
-    const id = Date.parse(date)/1000;
-    return { id: id.toString(), date: date, title: "", content: ""} as Item;
+    const date = Date();
+    const id = Date.parse(date) / 1000;
+    return { id: id.toString(), date: date, title: "", content: "" } as Item;
   }
-
-
 }
