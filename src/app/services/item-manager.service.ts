@@ -11,6 +11,7 @@ import { Item } from "../models/item";
 import { Rabbit } from "crypto-js";
 import { Subscription } from "rxjs";
 import { NotificationService } from './notification.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 @Injectable({
   providedIn: "root"
 })
@@ -30,9 +31,12 @@ export class ItemManagerService implements OnInit {
     public router: Router,
     public route: ActivatedRoute,
     public auth: AuthService,
+    public afAuth: AngularFireAuth,
     public db: FirebaseService,
     public notification: NotificationService
   ) {
+    // !FIX ME
+    return
       this.urlParams = this.route.paramMap.subscribe(params => {
           if (params.has("key")) this.currentKey = params.get("key");
           else {
@@ -72,10 +76,9 @@ export class ItemManagerService implements OnInit {
   }
 
   getItems(key) {
-    if (!this.auth.isLoggedIn) return this.notification.notify('NOT SIGN IN');
     this.currentKey = key;
-    console.log("Getting Items for:", key);
     this.itemChest = this.db.getItems(key).subscribe(items => {
+      console.log("Getting Items for:", key);
       if (items) {
         this.items = items.reverse();
         this.checkItemFocus();

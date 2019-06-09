@@ -24,6 +24,7 @@ import { ItemEditorComponent } from './components/item-editor/item-editor.compon
 import { ItemManagerService } from './services/item-manager.service';
 import { PromoComponent } from './components/promo/promo.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { TutorialComponent } from './components/tutorial/tutorial.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { NotificationComponent } from './components/notification/notification.co
     ControlPanelComponent,
     ItemEditorComponent,
     PromoComponent,
-    NotificationComponent
+    NotificationComponent,
+    TutorialComponent
   ],
   imports: [
     BrowserModule,

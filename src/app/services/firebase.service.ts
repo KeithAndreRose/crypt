@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 // import { AngularFirestore } from "@angular/fire/firestore";
 import { Item } from "../models/item";
 import { AuthService } from './auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Injectable({
@@ -10,11 +11,17 @@ import { AuthService } from './auth.service';
 export class FirebaseService {
   user:any;
 
-  constructor(public auth:AuthService) {
+  constructor(public auth:AuthService, public afAuth:AngularFireAuth) {
+    this.afAuth.authState.subscribe(user => {
+      this.user = user
+    })
   }
+  
+  // ! CRITICAL PROBLEM: BEING CALLED BEFORE FULLY INITALIZED
+  // ! Refactor 
 
   verifyUser(){
-    this.user = this.auth.userData
+    console.log(this.user)
     return this.user;
   }
 

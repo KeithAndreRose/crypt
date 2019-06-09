@@ -13,7 +13,7 @@
   path{
     fill: var(--mainTextColor);
   }
-  width: 35%;
+  width: 25%;
   transition: all ease 300ms;
 }
 
@@ -30,7 +30,7 @@
 
 @media(max-width:700px){
   .logo{
-    width: 55%;
+    width: 37%;
   }
   
   .promo-text{

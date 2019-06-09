@@ -5,6 +5,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { ControlPanelComponent } from './components/control-panel/control-panel.component';
 import { PromoComponent } from './components/promo/promo.component';
+import { TutorialComponent } from './components/tutorial/tutorial.component';
 
 
 
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path:'profile', component:ProfileComponent},
   {path:'controlpanel', component:ControlPanelComponent},
   {path:'promo', component:PromoComponent},
+  {path:'tutorial', component:TutorialComponent},
   {path:'**', redirectTo:'app', pathMatch:'full'},
 
 ];

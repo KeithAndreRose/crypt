@@ -1,0 +1,77 @@
+.tutorial-wrapper{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(111,111,111,.7);
+  z-index: 112;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  
+}
+
+
+.slide{
+  position: absolute;
+  opacity: 0;
+  width: 70%;
+  height: 80%;
+  border-radius: 8px;
+  background: var(--mainAccent);
+  transition: all ease 300ms;
+  display: flex;flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  z-index: 0;
+  
+  
+  &.active-slide{
+    opacity: 1;
+    z-index: 113;
+  }
+}
+
+button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  background: var(--mainTextColor);
+  padding: 1rem;
+  font-size: inherit;
+  font-family: inherit;
+  width: 250px;
+  height: 3rem;
+  border-radius: 1.5rem;
+  transition : all 450ms, cubic-bezier(0.65,0,.076,1);
+    .button-text {
+      transition : all 450ms, cubic-bezier(0.65,0,.076,1);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 0.75rem 0;
+      color: var(--mainAccent);
+      font-weight: 700;
+      line-height: 1.6;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  
+  &:hover {
+    // background: var(--mainAccent);
+    .button-text {
+      // color: var(--mainTextColor);
+    }
+  }
+}
