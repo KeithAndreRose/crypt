@@ -44,13 +44,13 @@ export class ItemManagerService {
     this.router.navigate(['app',this.currentKey]);
   }
 
-  async getItems(key, id?) {
+  getItems(key, id?) {
     if(key === this.currentKey)
       return this.previousKey = key;
     this.previousKey = key;
     this.currentKey = key;
-    this.itemChest = await this.db.getItems(key).subscribe(items => {
-      console.log("Getting Items for:", key);
+    console.log("Getting Items for:", key);
+    this.itemChest = this.db.getItems(key).subscribe(items => {
       if (items) {
         console.log(items);
         this.items = items.reverse();
