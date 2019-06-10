@@ -1,5 +1,5 @@
 <div class="home-wrapper">
-  <span>CHEST | {{itemManager.currentKey | uppercase}} </span>
+  <span>CHEST | {{app.manager.currentKey | uppercase}} </span>
   <header>
     <div class="message-area" (focusout)="saveItem($event,title, tags, content)">
       <div class="message-mobile-nav">
@@ -11,7 +11,7 @@
     </div>
   </header>
   <main>
-    <app-chest-item *ngFor="let item of itemManager.items" [item]="item" id={{item.id}} (click)="openItem(item)"></app-chest-item>
+    <app-chest-item *ngFor="let item of app.manager.items" [item]="item" id={{item.id}} (click)="openItem(item)"></app-chest-item>
   </main>
 </div>
-<app-item-editor *ngIf="itemManager.focusedItem" [item]="itemManager.focusedItem"></app-item-editor>
+<app-item-editor *ngIf="app.manager.focusedItem" [item]="app.manager.focusedItem"></app-item-editor>

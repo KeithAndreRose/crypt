@@ -1,4 +1,4 @@
-<div class="profile-wrapper" *ngIf="authService.userData as user">
+<div class="profile-wrapper" *ngIf="app.authorizer.userData as user">
   <span routerLink="home"> &lt; ACCOUNT</span>
   <div class="profile-image">
     <img class="profile-photo" src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}" alt="{{user.displayName}}">
@@ -12,10 +12,10 @@
   <div>
     <input class="profile-input" type="email" name="email" value="{{user.email}}" placeholder="Email Address" id="email">
   </div>
-
+<!-- 
   <div>
     <input class="profile-input" type="text" name="username" value="" placeholder="@Username" id="username">
-  </div>  
+  </div>   -->
 
 
   <div>
@@ -27,7 +27,7 @@
       ACCOUNT TERMINATION
     </h1>
     <div>
-      <label for="confirm-kill-step1">Type in your username</label>
+      <label for="confirm-kill-step1">Type in your email</label>
       <input class="terminate-confirm" type="text" name="confirm-kill-step1" id="confirm-kill-step1" #step1>
     </div>
     <div>

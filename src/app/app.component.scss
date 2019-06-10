@@ -8,6 +8,7 @@
   overflow: hidden;
   // height: 100vh;
   display: grid;
+  height: 100%;
   grid-template-columns: auto minmax(320px,1100px) auto;
   justify-content: space-between;
   transition: all ease 300ms;

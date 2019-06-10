@@ -19,6 +19,8 @@ export class ItemEditorComponent implements OnInit {
     // Close it clicked behind editor
     if(($event.target as HTMLElement).classList.contains('item-editor-wrapper')){
       this.itemManager.updateItem(this.item, editedObject)
+        .catch(err => this.itemManager.notification.notify('Error saving Item'))
+      this.itemManager.router.navigate(['app',this.itemManager.currentKey]);
     }
   }
 

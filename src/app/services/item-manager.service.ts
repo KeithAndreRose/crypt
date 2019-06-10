@@ -6,7 +6,7 @@ import {
   ParamMap,
   NavigationEnd
 } from "@angular/router";
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Item } from "../models/item";
 import { Rabbit } from "crypto-js";
 import { Subscription } from "rxjs";
@@ -15,17 +15,16 @@ import { AngularFireAuth } from '@angular/fire/auth';
 @Injectable({
   providedIn: "root"
 })
-export class ItemManagerService implements OnInit {
+export class ItemManagerService {
   defaultKey: String = "Me";
 
   focusedItem: Item = null;
+  previousKey;
   currentKey;
   currentItemID;
   items: Item[];
 
   itemChest: Subscription;
-  urlParams: Subscription;
-  urlEvents: Subscription;
 
   constructor(
     public router: Router,
@@ -34,37 +33,7 @@ export class ItemManagerService implements OnInit {
     public afAuth: AngularFireAuth,
     public db: FirebaseService,
     public notification: NotificationService
-  ) {
-    // !FIX ME
-    return
-      this.urlParams = this.route.paramMap.subscribe(params => {
-          if (params.has("key")) this.currentKey = params.get("key");
-          else {
-            this.currentKey = this.defaultKey;
-          this.router.navigate(["app", this.currentKey]);
-        }
-        if (params.has("id")) this.currentItemID = params.get("id");
-        this.getItems(this.currentKey);
-      });
-      
-      this.urlEvents = this.router.events.subscribe(e => {
-        if (e instanceof NavigationEnd) {
-          this.currentItemID = e.url.split("/")[3];
-          // TODO: Prevent excessive db read calls if already on page
-          this.getItems(
-            e.url.split("/")[2] ? e.url.split("/")[2] : this.defaultKey
-            );
-          }
-      });
-    }
-
-  ngOnInit() {}
-
-  ngOnDestroy() {
-    this.urlEvents.unsubscribe();
-    this.urlParams.unsubscribe();
-    this.itemChest.unsubscribe();
-  }
+  ) {}
 
   focusItem(item) {
     this.focusedItem = item;
@@ -72,16 +41,20 @@ export class ItemManagerService implements OnInit {
 
   unfocusItem() {
     this.focusedItem = null;
-    this.router.navigate(["app", this.currentKey]);
+    this.router.navigate(['app',this.currentKey]);
   }
 
-  getItems(key) {
+  async getItems(key, id?) {
+    if(key === this.currentKey)
+      return this.previousKey = key;
+    this.previousKey = key;
     this.currentKey = key;
-    this.itemChest = this.db.getItems(key).subscribe(items => {
+    this.itemChest = await this.db.getItems(key).subscribe(items => {
       console.log("Getting Items for:", key);
       if (items) {
+        console.log(items);
         this.items = items.reverse();
-        this.checkItemFocus();
+        this.checkItemFocus(id);
       }
     });
   }
@@ -93,20 +66,23 @@ export class ItemManagerService implements OnInit {
       .catch(e => console.error(e));
   }
 
-  checkItemFocus() {
-    if (!this.currentItemID) {
-      return this.unfocusItem();
+  checkItemFocus(id?) {
+    if (!id){
+      console.log('no defined ID included')
+      return this.focusedItem = null;
     }
-    const item = this.items.find(item => item.id == this.currentItemID);
+    const item = this.items.find(item => item.id == id);
     if (item) this.focusItem(item);
-    else this.unfocusItem();
+    else {
+      this.focusItem = null;
+      this.notification.notify('Item not found')
+    }
   }
 
-  updateItem(refItem, updatedItem: Item) {
+  async updateItem(refItem, updatedItem: Item) {
     const item: Item = this.stampItem(refItem, updatedItem);
-    // console.log(item);
-    this.db.updateItem(item, this.currentKey);
-    this.unfocusItem();
+    await this.db.updateItem(item, this.currentKey);
+    // this.router.navigate(['app',this.currentKey])
   }
 
   stampItem(itemBase: Item, newItem: Item) {

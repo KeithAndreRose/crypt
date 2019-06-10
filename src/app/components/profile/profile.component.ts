@@ -1,3 +1,4 @@
+import { AppService } from './../../services/app.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ItemManagerService } from 'src/app/services/item-manager.service';
@@ -11,8 +12,7 @@ export class ProfileComponent implements OnInit {
   username = 'test';
 
   constructor(
-    public authService:AuthService, 
-    public manager: ItemManagerService
+    public app: AppService
     ) { 
   }
 
@@ -21,18 +21,18 @@ export class ProfileComponent implements OnInit {
   }
 
   signOut(){
-    this.authService.signOut();
+    this.app.signOut();
   }
 
-  terminateAccount(username:string, consent:string, self:HTMLButtonElement){
-    if(username === this.username && consent === 'delete my account')
-      console.log('You deleted your account')
-    else
+  terminateAccount(email:string, consent:string, self:HTMLButtonElement){
+    if(email === this.app.userData.email && consent === 'delete my account')
+      this.app.notifier.notify('You deleted your account', 'good')
+    else{
       self.classList.add('failed')
-      console.log('Oop!')
       setTimeout(()=>{
         self.classList.remove('failed')
       },450);
+    }
 
   }
 

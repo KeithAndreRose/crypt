@@ -11,17 +11,14 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class FirebaseService {
   user:any;
 
-  constructor(public auth:AuthService, public afAuth:AngularFireAuth) {
-    this.afAuth.authState.subscribe(user => {
-      this.user = user
-    })
-  }
+  constructor(public auth:AuthService, public afAuth:AngularFireAuth) {}
   
   // ! CRITICAL PROBLEM: BEING CALLED BEFORE FULLY INITALIZED
   // ! Refactor 
 
   verifyUser(){
-    console.log(this.user)
+    this.user = this.auth.getUserData();
+    // console.log(this.user)
     return this.user;
   }
 

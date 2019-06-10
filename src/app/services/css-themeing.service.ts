@@ -23,6 +23,7 @@ export class CssThemeingService {
     document.documentElement.style.setProperty('--mainAccent', theme['mainAccent'])
     document.documentElement.style.setProperty('--mainTextColor', theme['mainTextColor'])
     document.documentElement.style.setProperty('--mainTransparent', theme['mainTransparent'])
+    document.documentElement.style.setProperty('--secondaryTransparent', theme['secondaryTransparent'])
     document.documentElement.style.setProperty('--mainFont', theme['mainFont'])
   }
 }

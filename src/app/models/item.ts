@@ -1,4 +1,5 @@
 export interface Item {
+  version?:string;
   id?: string;
   date?: string;
   title?: string;

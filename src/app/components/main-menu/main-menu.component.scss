@@ -4,6 +4,8 @@
   height: 100%;
   overflow: hidden;
   transition: all ease 300ms;
+  background: var(--mainTextColor);
+  color: var(--mainAccent);
 
   &.open{
     width: 250px;
@@ -18,7 +20,7 @@
 
 .menu-item{
   height: 3.5rem;
-  color: var(--mainTextColor);
+  color: var(--mainAccent);
   // border-bottom: solid thin var(--mainTextColor);
   display: grid;
   grid-template-columns: 1.5rem 5rem;
@@ -29,11 +31,11 @@
   cursor: pointer;
 
   &.active{
-    background: var(--mainTransparent);
+    background: var(--secondaryTransparent);
   }
 
   &:hover{
-    background: var(--mainTransparent);
+    background: var(--secondaryTransparent);
   }
 
   .menu-item-icon,

@@ -1,3 +1,4 @@
+import { AppService } from './../../services/app.service';
 import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { Item } from "src/app/models/item";
@@ -11,16 +12,16 @@ import { ItemManagerService } from "src/app/services/item-manager.service";
 export class HomeComponent implements OnInit {
   // Default Chest
 
-  constructor(public router: Router, public itemManager: ItemManagerService) {}
+  constructor(public app: AppService) {}
 
   ngOnInit() {}
 
   ngOnDestroy() {}
 
   openItem(item) {
-    console.log(item.id);
     const itemKey = item.id;
-    this.router.navigate(["app", this.itemManager.currentKey, itemKey]);
+    this.app.router.navigateByUrl(`app/${this.app.currentKey}/${itemKey}`);
+    console.log(itemKey);
   }
 
   textChange(textarea: HTMLTextAreaElement) {
@@ -41,9 +42,12 @@ export class HomeComponent implements OnInit {
         tags: tags.value,
         content: content.value
       };
+
       if(item.title === '' && item.tags === '' && item.content === '')
         return console.log('Empty item will not be saved')
-      this.itemManager.updateItem(this.itemManager.createItem(), item);
+      
+        // this.itemManager.updateItem(this.itemManager.createItem(), item);
+      console.log(item)
       title.value = "";
       tags.value = "";
       content.value = "";

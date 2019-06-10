@@ -1,8 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
-import { Router, NavigationEnd } from "@angular/router";
-import { AuthService } from "../../services/auth.service";
-import { CssThemeingService } from "src/app/services/css-themeing.service";
-import { ItemManagerService } from 'src/app/services/item-manager.service';
+import { AppService } from "src/app/services/app.service";
 
 @Component({
   selector: "app-navigation",
@@ -12,25 +9,12 @@ import { ItemManagerService } from 'src/app/services/item-manager.service';
 export class NavigationComponent implements OnInit {
   @Output() navEvent = new EventEmitter<Object>();
   @Input() chestKey: String;
-  constructor(
-    public router: Router,
-    public authService: AuthService,
-    public cssTheme: CssThemeingService,
-    public manager: ItemManagerService
-  ) {}
+  constructor(public app: AppService) {}
 
-  ngOnInit() {
-    // TODO: Prevent memory leaking
-    this.router.events.subscribe(e => {
-      if (e instanceof NavigationEnd) {
-        const key = e.url.split("/")[2];
-        this.chestKey = key;
-      }
-    });
-  }
+  ngOnInit() {}
 
   signOut() {
-    this.authService.signOut();
+    this.app.signOut();
   }
 
   toggleMainMenu() {
@@ -39,14 +23,14 @@ export class NavigationComponent implements OnInit {
 
   brandClick() {
     if (document.body.clientWidth < 701) this.toggleMainMenu();
-    else this.router.navigate(["app"]);
+    // else this.router.navigate(["app"]);
   }
 
   toggleTheme() {
-    return this.cssTheme.toggleTheme();
+    return this.app.themer.toggleTheme();
   }
 
   search(input: string) {
-    this.router.navigate(["app", input]);
+    this.app.router.navigate(["app", input]);
   }
 }
