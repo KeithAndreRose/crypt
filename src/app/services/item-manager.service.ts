@@ -52,7 +52,7 @@ export class ItemManagerService {
     this.previousKey = key;
     this.currentKey = key;
     console.log("Getting Items for:", key);
-    if(this.auth.getUserData()){
+    if(this.auth.getUserData() && navigator.onLine){
       this.itemChest = this.db.getItems(key).subscribe(items => {
         if (items) {
           console.log(items);
@@ -130,7 +130,7 @@ export class ItemManagerService {
   }
 
   getKeyring(){
-    if(this.auth.getUserData()){
+    if(this.auth.getUserData() && navigator.onLine){
       this.db.getKeyring().subscribe(data => {
         if(data){
           this.keyring = (data as any).keyring

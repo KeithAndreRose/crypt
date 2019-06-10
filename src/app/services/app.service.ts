@@ -39,6 +39,7 @@ export class AppService {
     this.manager.getKeyring();
     this.openUrlSubscription()
       .then(()=>{
+        this.openNetworkStatusListeners();
         this.printAppServiceReport();
       })
   }
@@ -60,12 +61,25 @@ export class AppService {
       }
     });
   }
+
+  openNetworkStatusListeners(){
+    window.addEventListener('offline',()=>{
+      this.notifier.notify('Connection: offline')
+      this.notifier.notify('Using Local Database')
+      this.manager.getItems(this.currentKey,this.currentItemID,'true');
+    });
+
+    window.addEventListener('online',()=>{
+      this.notifier.notify('Connection: Online')
+      this.manager.getItems(this.currentKey,this.currentItemID,'true');
+    });
+  }
   
   async signOut() {
     await this.authorizer.signOut();
     this.userData = this.authorizer.getUserData();
     this.notifier.notify('Logout Successful')
-    this.notifier.notify('Using Local Data')
+    this.notifier.notify('Using Local Database')
     this.manager.getItems(this.currentKey,this.currentItemID,'true');
   }
   
@@ -81,7 +95,7 @@ export class AppService {
 
   printAppServiceReport() {
     const report: object = {
-      online: this.online,
+      online: navigator.onLine,
       currentKey: this.currentKey,
       currentItemID: this.currentItemID,
       userData: this.authorizer.getUserData(),

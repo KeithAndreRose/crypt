@@ -19,7 +19,7 @@ export class FirebaseService {
   verifyUser(){
     this.user = this.auth.getUserData();
     // console.log(this.user)
-    return this.user;
+    return this.user && navigator.onLine;
   }
 
   getKeyring(){
