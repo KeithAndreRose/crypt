@@ -1,3 +1,4 @@
+import { AppService } from 'src/app/services/app.service';
 import { Component, ElementRef } from '@angular/core';
 import { NotificationService } from './services/notification.service';
 

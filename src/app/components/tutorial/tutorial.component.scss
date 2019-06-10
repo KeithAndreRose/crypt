@@ -25,20 +25,52 @@
   transition: all ease 300ms;
   display: flex;flex-direction: column;
   align-items: center;
-  align-content: center;
-  justify-content: center;
-  justify-items: center;
+  // justify-content: center;
   z-index: 0;
+
+  &::after{
+    position: absolute;
+    content: '';
+    display:block;
+    top: 1rem;
+    height: 1px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background: var(--mainTextColor);
+    border: solid 3px var(--mainTextColor);
+    border-radius: .5rem;
+  }
   
   
   &.active-slide{
     opacity: 1;
     z-index: 113;
   }
+
+  label{
+    position: absolute;
+    font-size: 2rem;
+    display: inline-block;
+    height: 1rem;
+    font-weight: bold;
+    left: 0;
+    right: 0;
+    top: -1rem;
+    margin: 0 auto;
+    text-align: center;
+    // justify-self: flex-start;
+  }
 }
 
+ 
+
 button {
-  position: relative;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  bottom: 1rem;
   display: inline-block;
   cursor: pointer;
   outline: none;
@@ -52,6 +84,7 @@ button {
   width: 250px;
   height: 3rem;
   border-radius: 1.5rem;
+  justify-self: flex-end;
   transition : all 450ms, cubic-bezier(0.65,0,.076,1);
     .button-text {
       transition : all 450ms, cubic-bezier(0.65,0,.076,1);
@@ -70,5 +103,28 @@ button {
   
   &:hover {
 
+  }
+}
+
+.s-1{
+  &::after{
+    width: 10%;
+  }
+}
+.s-2{
+  &::after{
+    width: 20%;
+  }
+}
+.s-3{
+  &::after{
+    width: 30%;
+  }
+}
+
+@media(max-width:700px){
+  .slide{
+    width: 85%;
+    height: 85%;
   }
 }

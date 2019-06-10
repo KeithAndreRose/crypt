@@ -13,14 +13,22 @@ export class TutorialComponent implements OnInit {
   constructor(public elRef: ElementRef) { }
 
   ngOnInit() {
+    localStorage.setItem('tutorialDone','true');
     this.currentSlide = 1;
     this.selfRef = this.elRef.nativeElement.children[0];
-    this.initTutorial()
+    const tutorialDone =localStorage.getItem('tutorialDone');
+    !tutorialDone || tutorialDone === 'false'  ? this.initTutorial() : this.selfRef.remove();
+  }
+
+  exit($event){
+    if(($event.target as HTMLElement).classList.contains('tutorial-wrapper'))
+      this.selfRef.remove();
   }
 
   initTutorial(){
-    // console.log(this.selfRef);
-    this.selfRef.querySelector(`.s-${this.currentSlide}`).classList.add('active-slide');
+    setTimeout(()=>{
+      this.selfRef.querySelector(`.s-${this.currentSlide}`).classList.add('active-slide');
+    },400)
   }
 
   toggleSlide(slideNumber){
@@ -31,7 +39,8 @@ export class TutorialComponent implements OnInit {
     this.selfRef.querySelector(`.s-${this.previousSlide}`).classList.remove('active-slide');
     setTimeout(()=>{
       this.selfRef.querySelector(`.s-${this.currentSlide}`).classList.add('active-slide');
-    },400)
+    },300)
+    // localStorage.setItem('tutorialDone','true');
   }
 
 }

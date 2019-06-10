@@ -24,6 +24,8 @@ export class ItemManagerService {
   currentItemID;
   items: Item[];
 
+  keyring;
+
   itemChest: Subscription;
 
   constructor(
@@ -44,26 +46,41 @@ export class ItemManagerService {
     this.router.navigate(['app',this.currentKey]);
   }
 
-  getItems(key, id?) {
-    if(key === this.currentKey)
+  getItems(key, id?,force?) {
+    if(key === this.currentKey && !force)
       return this.previousKey = key;
     this.previousKey = key;
     this.currentKey = key;
     console.log("Getting Items for:", key);
-    this.itemChest = this.db.getItems(key).subscribe(items => {
-      if (items) {
-        console.log(items);
-        this.items = items.reverse();
+    if(this.auth.getUserData()){
+      this.itemChest = this.db.getItems(key).subscribe(items => {
+        if (items) {
+          console.log(items);
+          this.items = items.reverse();
+          localStorage.setItem(this.currentKey,JSON.stringify(this.items))
+          this.checkItemFocus(id);
+        }
+      });
+    }
+      else{
+        this.items = JSON.parse(localStorage.getItem(this.currentKey))
         this.checkItemFocus(id);
-      }
-    });
+      console.log('Getting Local DB')
+    }
   }
 
   deleteItem(item: Item) {
-    this.db
-      .deleteItem(item.id, item.locationKey)
-      .then(() => console.log(`Deleted item ${item.id}`))
-      .catch(e => console.error(e));
+    const ID = item.id;
+    const locationKey = item.locationKey
+      this.db
+        .deleteItem(ID, locationKey)
+        .then((e) => {
+          if(!this.auth.getUserData())
+          console.log(e)
+          this.items = e as Item[];
+        })
+        .catch(e => console.error(e));
+
   }
 
   checkItemFocus(id?) {
@@ -110,5 +127,18 @@ export class ItemManagerService {
     const date = Date();
     const id = Date.parse(date) / 1000;
     return { id: id.toString(), date: date, title: "", content: "" } as Item;
+  }
+
+  getKeyring(){
+    if(this.auth.getUserData()){
+      this.db.getKeyring().subscribe(data => {
+        if(data){
+          this.keyring = (data as any).keyring
+          localStorage.setItem('keyring',JSON.stringify(this.keyring))
+        }
+      });
+    } else {
+      this.keyring = JSON.parse(localStorage.getItem('keyring'))
+    }
   }
 }

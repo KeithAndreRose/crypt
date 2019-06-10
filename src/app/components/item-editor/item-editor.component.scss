@@ -83,7 +83,8 @@
     left: 0;
     z-index: 111;
     width: 100vw;
-    height: 100vh;
+    max-height: 100vh;
+    height: 100%;
   
     .message-mobile-nav{
       display: block;

@@ -1,19 +1,16 @@
-<div class="tutorial-wrapper">
+<div class="tutorial-wrapper" (click)="exit($event)">
   <!-- Sections can be transitioned thought -->
   <div class="slide s-1">
-    <p>-</p>
     <button class="learn-more" (click)="toggleSlide(currentSlide + 1)">
       <p class="button-text">Next</p>
     </button>
   </div>
   <div class="slide s-2">
-    <p>--</p>
     <button class="learn-more"  (click)="toggleSlide(currentSlide + 1)">
       <p class="button-text">Next</p>
     </button>
   </div>
   <div class="slide s-3">
-    <p>---</p>
     <button class="learn-more" (click)="toggleSlide(currentSlide + 1)">
       <p class="button-text">Next</p>
     </button>

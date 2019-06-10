@@ -54,10 +54,15 @@ export class FirebaseService {
     }
   }
 
-  deleteItem(itemId:String, locationKey){
+  async deleteItem(itemId:String, locationKey){
     if(this.verifyUser()){
-      // this.logInteraction();
-      return this.auth.afs.doc(`posts/${this.user.uid}/${locationKey}/${itemId}`).delete()
+      return await this.auth.afs.doc(`posts/${this.user.uid}/${locationKey}/${itemId}`).delete()
+    } else {
+      let items:Item[] = JSON.parse(localStorage.getItem(locationKey))
+      const i = items.findIndex(item => item.id === itemId)
+      items.splice(i,1)
+      localStorage.setItem(locationKey,JSON.stringify(items))
+      return await items; 
     }
   }
 

@@ -36,6 +36,7 @@ export class AppService {
   ) {
 
     this.userData = this.authorizer.getUserData();
+    this.manager.getKeyring();
     this.openUrlSubscription()
       .then(()=>{
         this.printAppServiceReport();
@@ -64,13 +65,16 @@ export class AppService {
     await this.authorizer.signOut();
     this.userData = this.authorizer.getUserData();
     this.notifier.notify('Logout Successful')
+    this.notifier.notify('Using Local Data')
+    this.manager.getItems(this.currentKey,this.currentItemID,'true');
   }
   
   // Sign in with Google
   async googleAuth() {
     await this.authorizer.authLogin(new auth.GoogleAuthProvider());
     this.userData = this.authorizer.getUserData();
-    this.notifier.notify('Login Successful')
+    this.notifier.notify('Login Successful');
+    this.manager.getItems(this.currentKey,this.currentItemID,'true');
   }
 
   // TODO: Item Manager Getter

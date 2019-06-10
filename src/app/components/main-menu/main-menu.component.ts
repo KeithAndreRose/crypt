@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -12,25 +13,9 @@ export class MainMenuComponent implements OnInit {
 
   keyring = [];
 
-  constructor(public firebase: FirebaseService, public auth: AuthService, public notification:NotificationService) { }
+  constructor( public app:AppService) { }
 
   ngOnInit() {
-    this.getKeyring();
-  }
-
-  getKeyring(){
-    if(!this.auth.userData)
-      return
-    this.firebase.getKeyring().subscribe(data => {
-      if(data){
-        this.keyring = (data as any).keyring
-        localStorage.setItem('keyring',JSON.stringify(this.keyring))
-      }
-      else {  
-        this.keyring = JSON.parse(localStorage.getItem('keyring'))
-        if(!this.keyring) this.keyring = []
-      }
-    })
   }
 
   saveToKey(key){
@@ -38,7 +23,7 @@ export class MainMenuComponent implements OnInit {
     if(!iKey){
       this.keyring.push({key:key})
       localStorage.setItem('keyring',JSON.stringify(this.keyring))
-      this.firebase.updateKeyring(this.keyring)
+      this.app.manager.db.updateKeyring(this.keyring)
     } else{
       console.log(`Keyring already contains "${key}"`)
     }
@@ -49,7 +34,7 @@ export class MainMenuComponent implements OnInit {
     i = this.keyring.indexOf(i);
     this.keyring.splice(i,1);
     localStorage.setItem('keyring',JSON.stringify(this.keyring));
-    this.firebase.updateKeyring(this.keyring);
+    this.app.manager.db.updateKeyring(this.keyring);
   }
 
 }
