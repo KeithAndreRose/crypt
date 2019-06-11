@@ -1,3 +1,4 @@
+import { AppService } from 'src/app/services/app.service';
 import { Component, OnInit, ElementRef } from '@angular/core';
 
 @Component({
@@ -10,19 +11,20 @@ export class TutorialComponent implements OnInit {
   currentSlide: Number;
   previousSlide: Number;
   selfRef: Element;
-  constructor(public elRef: ElementRef) { }
+  constructor(public elRef: ElementRef, public app:AppService) { }
 
   ngOnInit() {
-    localStorage.setItem('tutorialDone','true');
     this.currentSlide = 1;
     this.selfRef = this.elRef.nativeElement.children[0];
-    const tutorialDone =localStorage.getItem('tutorialDone');
-    !tutorialDone || tutorialDone === 'false'  ? this.initTutorial() : this.selfRef.remove();
+    this.initTutorial();
   }
 
   exit($event){
-    if(($event.target as HTMLElement).classList.contains('tutorial-wrapper'))
+    if(($event.target as HTMLElement).classList.contains('tutorial-wrapper')){
+      localStorage.setItem('tutorialEnabled', 'false')
       this.selfRef.remove();
+      this.app.router.navigate(['app',this.app.currentKey]);
+    }
   }
 
   initTutorial(){
@@ -40,7 +42,7 @@ export class TutorialComponent implements OnInit {
     setTimeout(()=>{
       this.selfRef.querySelector(`.s-${this.currentSlide}`).classList.add('active-slide');
     },300)
-    // localStorage.setItem('tutorialDone','true');
+    localStorage.setItem('tutorialEnabled', 'false')
   }
 
 }

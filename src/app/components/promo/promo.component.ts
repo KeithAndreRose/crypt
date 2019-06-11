@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-promo',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PromoComponent implements OnInit {
   
-  constructor() { }
+  constructor(public app: AppService) { }
 
   ngOnInit() {
   }
 
+  signIn(){
+    if(this.app.authorizer.getUserData())
+      return this.app.router.navigate(['app', this.app.currentKey])
+    else
+      this.app.googleAuth();
+  }
 }

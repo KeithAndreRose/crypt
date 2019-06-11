@@ -24,9 +24,11 @@ export class ProfileComponent implements OnInit {
     this.app.signOut();
   }
 
-  terminateAccount(email:string, consent:string, self:HTMLButtonElement){
-    if(email === this.app.userData.email && consent === 'delete my account')
-      this.app.notifier.notify('You deleted your account', 'good')
+  async terminateAccount(email:string, consent:string, self:HTMLButtonElement){
+    if(email === this.app.userData.email && consent === 'delete my account'){
+      await this.app.terminateAccount();
+      this.app.router.navigate(['app'])
+    }
     else{
       self.classList.add('failed')
       setTimeout(()=>{

@@ -98,12 +98,19 @@ export class ItemManagerService {
 
   async updateItem(refItem, updatedItem: Item) {
     const item: Item = this.stampItem(refItem, updatedItem);
-    await this.db.updateItem(item, this.currentKey);
+
+    await this.db.updateItem(item, this.currentKey)
+    .then((data)=>{
+      if(!this.db.verifyUser()){
+        this.items = data as Item[]
+      }
+    });
     // this.router.navigate(['app',this.currentKey])
   }
 
   stampItem(itemBase: Item, newItem: Item) {
     const itemCopy: Item = itemBase;
+      
     itemCopy.title = Rabbit.encrypt(
       newItem.title,
       this.auth.secretKey
@@ -118,7 +125,7 @@ export class ItemManagerService {
     ).toString();
     itemCopy.locationKey = this.currentKey;
     itemCopy.lastModified = Date();
-    itemCopy.owner = this.auth.userData.uid;
+    itemCopy.owner = this.auth.getUserData() ? this.auth.getUserData().uid : 'local';
     itemCopy.func = this.auth.func;
     return itemCopy;
   }
@@ -138,7 +145,7 @@ export class ItemManagerService {
         }
       });
     } else {
-      this.keyring = JSON.parse(localStorage.getItem('keyring'))
+      this.keyring = localStorage.getItem('keyring') ? JSON.parse(localStorage.getItem('keyring')) : null
     }
   }
 }

@@ -91,7 +91,6 @@ export class AppService {
     this.manager.getItems(this.currentKey,this.currentItemID,'true');
   }
 
-  // TODO: Item Manager Getter
 
   printAppServiceReport() {
     const report: object = {
@@ -101,5 +100,13 @@ export class AppService {
       userData: this.authorizer.getUserData(),
     };
     console.log(report);
+  }
+
+  async terminateAccount(){
+    await this.authorizer.terminateAccount()
+    this.userData = this.authorizer.getUserData();
+    return setTimeout(()=>{
+      this.router.navigate(['promo'])
+    },2000) 
   }
 }

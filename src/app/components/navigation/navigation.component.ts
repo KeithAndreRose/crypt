@@ -23,7 +23,7 @@ export class NavigationComponent implements OnInit {
 
   brandClick() {
     if (document.body.clientWidth < 701) this.toggleMainMenu();
-    // else this.router.navigate(["app"]);
+    else this.app.router.navigate(["app"]);
   }
 
   toggleTheme() {

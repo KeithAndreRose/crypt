@@ -6,11 +6,11 @@
   </div>
 
   <div>
-      <input class="profile-input" type="text" name="name" value="{{user.displayName}}" placeholder="Name" id="name">
+      <input class="profile-input" type="text" name="name" value="{{user.displayName}}" placeholder="Name" disabled id="name">
   </div>  
 
   <div>
-    <input class="profile-input" type="email" name="email" value="{{user.email}}" placeholder="Email Address" id="email">
+    <input class="profile-input" type="email" name="email" value="{{user.email}}" placeholder="Email Address" disabled id="email">
   </div>
 <!-- 
   <div>
@@ -40,5 +40,9 @@
       </button>
     </div>
   </div>
-
+</div>
+<div class="profile-wrapper" *ngIf="!app.authorizer.userData as user">
+  <div class="">
+    SIGN IN SUCKKA
+  </div>
 </div>

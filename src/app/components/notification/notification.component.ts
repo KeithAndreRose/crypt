@@ -22,6 +22,10 @@ export class NotificationComponent implements OnInit {
     setTimeout(()=>{
       this.self.classList.remove('active');
     },4000)
+
+    setTimeout(()=>{
+      this.self.remove();
+    },4400)
   }
 
 }
