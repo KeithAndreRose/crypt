@@ -6,6 +6,8 @@ import { HomeComponent } from './components/home/home.component';
 import { ControlPanelComponent } from './components/control-panel/control-panel.component';
 import { PromoComponent } from './components/promo/promo.component';
 import { TutorialComponent } from './components/tutorial/tutorial.component';
+import { EncryptionAnimComponent } from './components/encryption-anim/encryption-anim.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 
@@ -22,6 +24,11 @@ const routes: Routes = [
   {path:'controlpanel', component:ControlPanelComponent},
   {path:'promo', component:PromoComponent},
   {path:'tutorial', component:TutorialComponent},
+  {path:'dev',
+  children: [
+    {path: 'cipher', component: EncryptionAnimComponent},
+    {path: 'loader', component: LoadingComponent}
+  ]},
   {path:'**', redirectTo:'app', pathMatch:'full'},
 
 ];

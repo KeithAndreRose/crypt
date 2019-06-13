@@ -41,6 +41,8 @@ export class AppService {
       .then(()=>{
         this.openNetworkStatusListeners();
         this.printAppServiceReport();
+        if(this.currentKey === undefined)
+          this.manager.getItems('Default')
       })
   }
 

@@ -23,6 +23,7 @@ export class ItemManagerService {
   currentKey;
   currentItemID;
   items: Item[];
+  itemsLoading: boolean = true;
 
   keyring;
 
@@ -48,7 +49,8 @@ export class ItemManagerService {
 
   getItems(key, id?,force?) {
     if(key === this.currentKey && !force)
-      return this.previousKey = key;
+    return this.previousKey = key;
+    this.itemsLoading = true;
     this.previousKey = key;
     this.currentKey = key;
     console.log("Getting Items for:", key);
@@ -58,20 +60,22 @@ export class ItemManagerService {
           console.log(items);
           this.items = items.reverse();
           localStorage.setItem(this.currentKey,JSON.stringify(this.items))
+          this.itemsLoading = false; 
           this.checkItemFocus(id);
         }
       });
     }
       else{
         this.items = JSON.parse(localStorage.getItem(this.currentKey))
+        console.log('Getting Local DB')
         this.checkItemFocus(id);
-      console.log('Getting Local DB')
+        this.itemsLoading = false;
     }
   }
 
   deleteItem(item: Item) {
     const ID = item.id;
-    const locationKey = item.locationKey
+    const locationKey = item.locationKey;
       this.db
         .deleteItem(ID, locationKey)
         .then((e) => {
@@ -113,15 +117,15 @@ export class ItemManagerService {
       
     itemCopy.title = Rabbit.encrypt(
       newItem.title,
-      this.auth.secretKey
+      this.auth.userCredentials.privateKey
     ).toString();
     itemCopy.tags = Rabbit.encrypt(
       newItem.tags,
-      this.auth.secretKey
+      this.auth.userCredentials.privateKey
     ).toString();
     itemCopy.content = Rabbit.encrypt(
       newItem.content,
-      this.auth.secretKey
+      this.auth.userCredentials.privateKey
     ).toString();
     itemCopy.locationKey = this.currentKey;
     itemCopy.lastModified = Date();

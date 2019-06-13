@@ -1,4 +1,4 @@
-import { ItemManagerService } from './../../services/item-manager.service';
+import { AppService } from 'src/app/services/app.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Item } from 'src/app/models/item';
 
@@ -11,16 +11,24 @@ export class ChestItemComponent implements OnInit {
   @Input() item:Item;
   @Output() itemEmitter = new EventEmitter<Object>();
   
-  constructor(public itemManager:ItemManagerService) { }
+  constructor(public app:AppService) { }
 
   ngOnInit() {
+  }
+
+  openItem(item,$event:MouseEvent) {
+    if(($event.target as HTMLElement).classList.contains('item-delete-comp'))
+      return
+    const itemKey = item.id;
+    this.app.router.navigateByUrl(`app/${this.app.currentKey}/${itemKey}`);
+    console.log(itemKey);
   }
 
   archiveItem(){
   }
 
   delete(item:Item){
-    this.itemManager.deleteItem(item);
+    this.app.manager.deleteItem(item);
   }
   
 

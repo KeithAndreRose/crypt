@@ -22,6 +22,8 @@ import { TutorialComponent } from './components/tutorial/tutorial.component';
 import { environment } from '../environments/environment';
 
 import { AppService } from './services/app.service';
+import { LoadingComponent } from './components/loading/loading.component';
+import { EncryptionAnimComponent } from './components/encryption-anim/encryption-anim.component';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import { AppService } from './services/app.service';
     PromoComponent,
     NotificationComponent,
     TutorialComponent,
+    LoadingComponent,
+    EncryptionAnimComponent,
   ],
   imports: [
     BrowserModule,

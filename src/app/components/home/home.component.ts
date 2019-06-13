@@ -10,19 +10,13 @@ import { ItemManagerService } from "src/app/services/item-manager.service";
   styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit {
-  // Default Chest
+  itemsLoading: boolean = false;
 
   constructor(public app: AppService) {}
 
   ngOnInit() {}
 
   ngOnDestroy() {}
-
-  openItem(item) {
-    const itemKey = item.id;
-    this.app.router.navigateByUrl(`app/${this.app.currentKey}/${itemKey}`);
-    console.log(itemKey);
-  }
 
   textChange(textarea: HTMLTextAreaElement) {
     console.log(textarea.scrollHeight);

@@ -16,7 +16,8 @@ import { Router } from '@angular/router';
 export class AuthService {
   name: string = 'Authorization';
   userData: firebase.User;
-  secretKey: string = 'wasd';
+  userCredentials: User;
+  secretKey: string = 'LOCAL';
   func: string = 'v0';
 
   constructor(
@@ -29,6 +30,22 @@ export class AuthService {
       user ? console.log(user) : console.log("No User Profile");
       this.userData = user ? user : null;
       user ? localStorage.setItem("user", JSON.stringify(this.userData)) : 0;
+
+      if(user){
+        if(localStorage.getItem("userCredentials")){
+          this.userCredentials = JSON.parse(localStorage.getItem('userCredentials'));
+          this.secretKey = this.userCredentials.privateKey;
+        }
+        else
+          this.afs.doc(`users/${user.uid}`).valueChanges().subscribe(data => {
+            localStorage.setItem('userCredentials', JSON.stringify(data));
+            this.userCredentials = data as User;
+            this.secretKey = this.userCredentials.privateKey;
+          })
+      }
+
+      this.secretKey = user ? this.userCredentials.privateKey : 'LOCAL';
+
     });
   }
 
@@ -55,8 +72,10 @@ export class AuthService {
     const logout = await this.afAuth.auth.signOut()
       .catch(err => this.notifier.notify(err, 'bad', this.name))
     this.userData = null;
+    this.userCredentials = null;
     localStorage.removeItem('keyring');
     localStorage.removeItem('tutorialEnabled');
+    localStorage.removeItem('userCredentials');
     return localStorage.removeItem('user');
   }
 

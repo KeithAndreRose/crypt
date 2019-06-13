@@ -1,0 +1,15 @@
+svg {
+  height: 5rem;
+  display: block;
+  margin: 50px auto 20px;
+  path {
+    fill: rgba(0,0,0,.15);
+    transition: all cubic-bezier(0.42, 0, 0.14, 0.43) .8s;
+  }
+  &.active {
+    path {
+      fill: rgba(0,0,0,.3);
+      stroke-dashoffset: 0;
+    }
+  }
+}
