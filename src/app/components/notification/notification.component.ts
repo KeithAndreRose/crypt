@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
-
+import { Notification } from "../../models/notification";
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent implements OnInit {
-  @Input() notice: String;
+  @Input() notice: Notification;
   self: HTMLElement;
   constructor(public elRef:ElementRef) { }
 

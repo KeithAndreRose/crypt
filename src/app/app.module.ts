@@ -47,7 +47,7 @@ import { EncryptionAnimComponent } from './components/encryption-anim/encryption
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     environment.production ? ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }) : []
   ],

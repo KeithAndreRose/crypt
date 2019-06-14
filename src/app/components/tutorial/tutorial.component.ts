@@ -8,8 +8,8 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 })
 export class TutorialComponent implements OnInit {
 
-  currentSlide: Number;
-  previousSlide: Number;
+  currentSlide: number;
+  previousSlide: number;
   selfRef: Element;
   constructor(public elRef: ElementRef, public app:AppService) { }
 

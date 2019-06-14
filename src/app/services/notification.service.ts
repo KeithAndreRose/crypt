@@ -1,12 +1,8 @@
 //* Responsible for displaying top level exceptions to the user
 
 import { Injectable } from '@angular/core';
+import { Notification } from "../models/notification";
 
-export interface Notification{
-  message: string;
-  type: string;
-  referrer: string;
-}
 
 @Injectable({
   providedIn: 'root'

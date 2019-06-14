@@ -8,7 +8,7 @@ import { NotificationService } from './services/notification.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ng-crypt-app';
+  title = 'Crypt';
   hideNav = false;
 
   constructor(public elRef: ElementRef, public notification:NotificationService){
