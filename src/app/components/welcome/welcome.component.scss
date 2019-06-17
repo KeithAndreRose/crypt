@@ -1,0 +1,126 @@
+.welcome-wrapper{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 112;
+  background: rgba(0,0,0,.7);
+}
+
+.welcome-container{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 800px;
+  height: 450px;
+  margin: auto;
+  background: #fff;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  border-radius: 15px;
+  border: solid thin #000;
+}
+
+.message,
+.methods{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+}
+
+.message{
+  grid-column: 1/2;
+  background: #000;
+  color: #fff;
+  border-top-left-radius: 13px;
+  border-bottom-left-radius: 13px;
+
+  svg{
+    width: 55%;
+    margin: auto;
+    // height: 50px;
+    fill: #fff;
+    path{
+      fill: #fff;
+    }
+  }
+}
+
+.methods{
+  border-top-right-radius: 13px;
+  border-bottom-right-radius: 13px;
+  grid-column: 2/3;
+  padding: 2rem 3rem;
+  
+  p{
+    font-weight: bold;
+  }
+  
+  button{
+    position: relative;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    margin: 1rem 0;
+    padding: .5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: grey;
+    color: #fff;
+    
+    i{
+      position: absolute;
+      left: 0.5rem;
+      top: 0;
+      bottom: 0;
+      margin: auto 0;
+      background: #fff;
+      // color: 
+      width: 1.5rem;
+      text-align: center;
+      
+      height: 1.5rem;
+      border-radius: 3px;
+      padding: .2rem;
+    }
+
+    &.google{
+      background: rgb(234, 67, 53);
+      i{
+        color: rgb(234, 67, 53);
+      }
+    }
+
+    &.twitter{
+      background: rgb(0, 172, 237);;
+      i{
+        color: rgb(0, 172, 237);;
+      }
+    }
+
+    &.facebook{
+      background: rgb(59, 89, 152);;
+      i{
+        color: rgb(59, 89, 152);;
+      }
+    }
+
+  }
+}
+
+.exit{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+}

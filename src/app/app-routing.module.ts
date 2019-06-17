@@ -1,3 +1,4 @@
+import { WelcomeComponent } from './components/welcome/welcome.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path:'controlpanel', component:ControlPanelComponent},
   {path:'promo', component:PromoComponent},
   {path:'tutorial', component:TutorialComponent},
+  {path:'welcome', component:WelcomeComponent},
   {path:'dev',
   children: [
     {path: 'cipher', component: EncryptionAnimComponent},

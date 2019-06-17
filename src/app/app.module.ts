@@ -24,6 +24,7 @@ import { environment } from '../environments/environment';
 import { AppService } from './services/app.service';
 import { LoadingComponent } from './components/loading/loading.component';
 import { EncryptionAnimComponent } from './components/encryption-anim/encryption-anim.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { EncryptionAnimComponent } from './components/encryption-anim/encryption
     TutorialComponent,
     LoadingComponent,
     EncryptionAnimComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
